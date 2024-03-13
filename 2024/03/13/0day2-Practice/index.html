@@ -13,7 +13,7 @@
   
   <title>
     
-      之源 
+      0day2-Practice 
       
       
       |
@@ -153,19 +153,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">之源</div>
+      <div class="post-title">0day2-Practice</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-03-10 22:44:13
+          2024-03-13 20:51:20
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/Life/" title="Life">
-                    #Life
+                  <a href="/tags/pwn/" title="pwn">
+                    #pwn
                   </a>
                 </span>
                 
@@ -173,17 +173,68 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="之源"><a href="#之源" class="headerlink" title="之源"></a>之源</h1><p><strong>凡事得知源起，谨以此博客记录我的二进制安全学习之路</strong>🗡</p>
-<p><strong>祝你好运</strong></p>
-<img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403102243940.jpg" style="zoom: 50%;" />
+        <p>对书籍《0day软件漏洞精要分析-第二版》中的样本进行了调试分析</p>
+<p>很喜欢书中的一句话：</p>
+<blockquote>
+<p>所有漂亮的 exploits 背后都隐藏着无数个对着寄存器发呆的不眠之夜</p>
+</blockquote>
+<h1 id="《0day2》实战笔记：part1-基础知识"><a href="#《0day2》实战笔记：part1-基础知识" class="headerlink" title="《0day2》实战笔记：part1 - 基础知识"></a>《0day2》实战笔记：part1 - 基础知识</h1><h2 id="Lab"><a href="#Lab" class="headerlink" title="Lab"></a>Lab</h2><blockquote>
+<p>记录调试代码时碰到的不懂或有趣、顿悟的地方</p>
+</blockquote>
+<p>Ollydbg，首先调试到需要进行标准输入的地方</p>
+<p>在调用<code>scanf</code>地方，从标准输入流中读入的数据写在栈上的位置</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132047178.png" alt="image-20240311170006867"></p>
+<p>写入后然后调用<code>crack_me.00401000</code>，进入后查看到字符串，我们很直接的猜测可能就是密码</p>
+<p>调试的时候发现，执行了一个循环的过程，然后进行字符的比较</p>
+<p>一个思路就是直接输入<code>1234567</code>通关</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132047024.png" alt="image-20240311170545410"></p>
+<p>第二个思路就是打<code>patch</code>，修改汇编语句为<code>jne short 0040107F</code></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132047835.png" alt="image-20240311170820051"></p>
+<p>正确的patch应该是使用010editor类工具修改PE文件中的二进制数据，此处不再演示了。</p>
+<h1 id="《0day2》实战笔记：part2-栈溢出原理与实践"><a href="#《0day2》实战笔记：part2-栈溢出原理与实践" class="headerlink" title="《0day2》实战笔记：part2 - 栈溢出原理与实践"></a>《0day2》实战笔记：part2 - 栈溢出原理与实践</h1><h2 id="Lab-1"><a href="#Lab-1" class="headerlink" title="Lab"></a>Lab</h2><p>IDA反汇编，存在栈溢出</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132047146.png" alt="image-20240313160741662"></p>
+<p>攻击思路有：</p>
+<ul>
+<li>使用栈溢出覆盖栈上的数据，完成变量覆盖</li>
+<li>使用栈溢出劫持EIP，改变程序的执行流</li>
+<li>shellcode注入</li>
+</ul>
+<h3 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h3><p>IDA静态分析的时候发现了</p>
+<p>最终密码校验的v3标志位和strcpy中的v3在栈上的关系如下：</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046462.png" alt="image-20240313165112432"></p>
+<p>查看源码，v2完全可控</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046496.png" alt="image-20240313165149755"><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046580.png" alt="image-20240313165255488"></p>
+<p>只需要偏移8个字节，就可以覆盖，输入类似<code>aaaaaaaa</code>即可符合验证</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046811.png" alt="image-20240313165506654"></p>
+<h3 id="劫持eip"><a href="#劫持eip" class="headerlink" title="劫持eip"></a>劫持eip</h3><p>既然可以覆盖变量，何不覆盖掉返回地址</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046409.png" alt="image-20240313185613942"></p>
+<p>主要看大端小端序，可以动态调试的时候查看</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046930.png" alt="image-20240313185534207"></p>
+<p>报错是因为覆盖掉上一个栈帧地址</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046007.png" alt="image-20240313185520386"></p>
+<h3 id="栈上的shellcode注入"><a href="#栈上的shellcode注入" class="headerlink" title="栈上的shellcode注入"></a>栈上的shellcode注入</h3><p>我们搓出shellcode如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">xor ebx, ebx</span><br><span class="line">push ebx</span><br><span class="line">push 626F6A2D</span><br><span class="line">push 646F6F67</span><br><span class="line">mov eax, esp</span><br><span class="line">push ebx ; uType</span><br><span class="line">push eax ; lpCaption</span><br><span class="line">push eax ; lpText</span><br><span class="line">push ebx ; hWnd</span><br><span class="line">mov eax, 0x77D507EA		; 需要查看MessageBox的地址 = addr(User32.dll) + addr(offset)</span><br><span class="line">call eax</span><br></pre></td></tr></table></figure>
 
+
+
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046721.png" alt="image-20240313191430059"></p>
+<p>然后使用pwntools的asm模块，将汇编转字节码，当然也可以使用AI工具帮忙转，然后就是查看栈溢出点</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046158.png" alt="image-20240313204123973"></p>
+<p>偏移0x30+0x4，然后再填入4字节的跳转到shellcode地址</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046485.png" alt="image-20240313204142563"></p>
+<p>动态调试查看写入点的基址，一个trick是可以写一些显眼的脏数据查看</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046922.png" alt="image-20240313204441148"></p>
+<p>所以写入buffer的数据为如下，<code>0x90</code>对应着<code>nop</code>，注意小端</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046338.png"></p>
+<p>弹窗成功</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403132046999.png" alt="image-20240313203833764"></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/01/14/hello-world/" target="_self">
+              <a href="/2024/03/10/BinSec-Life/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -192,15 +243,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-03-10 22:44:13
+              2024-03-13 20:51:20
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/Life/" title="Life">
-                        #Life
+                      <a href="/tags/pwn/" title="pwn">
+                        #pwn
                       </a>
                     </span>
                     
@@ -208,11 +259,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/03/13/0day2-Practice/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -226,7 +272,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%8B%E6%BA%90"><span class="toc-text">之源</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A0day2%E3%80%8B%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0%EF%BC%9Apart1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">《0day2》实战笔记：part1 - 基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lab"><span class="toc-text">Lab</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%8A0day2%E3%80%8B%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0%EF%BC%9Apart2-%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5"><span class="toc-text">《0day2》实战笔记：part2 - 栈溢出原理与实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lab-1"><span class="toc-text">Lab</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="toc-text">变量覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%AB%E6%8C%81eip"><span class="toc-text">劫持eip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E4%B8%8A%E7%9A%84shellcode%E6%B3%A8%E5%85%A5"><span class="toc-text">栈上的shellcode注入</span></a></li></ol></li></ol></li></ol>
       
     </div>
   </div>
@@ -514,12 +560,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E4%B9%8B%E6%BA%90 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F10%2FBinSec-Life%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + 0day2-Practice + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F13%2F0day2-Practice%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/10/BinSec-Life/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/13/0day2-Practice/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
