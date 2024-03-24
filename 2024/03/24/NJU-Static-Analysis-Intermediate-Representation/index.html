@@ -13,6 +13,11 @@
   
   <title>
     
+      NJU Static Analysis - Intermediate Representation 
+      
+      
+      |
+    
      Hexo
   </title>
 
@@ -103,82 +108,232 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="NJU Static Analysis - Intermediate Representation">
-        <div class="time-m-d">2024-03-24</div>
-        <div class="title">
-          <a href="/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/">
-            
-              
-                <span>NJU Static Analysis - Intermediate Representation</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">NJU Static Analysis - Intermediate Representation</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-03-24 17:22:19
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Static-Analysis/" title="Static Analysis">
+                    #Static Analysis
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="NJU Static Analysis - Introduction">
-        <div class="time-m-d">2024-03-20</div>
-        <div class="title">
-          <a href="/2024/03/20/NJU-Static-Analysis-Introduction/">
-            
-              
-                <span>NJU Static Analysis - Introduction</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <h1 id="NJU-Static-Analysis-Intermediate-Representation"><a href="#NJU-Static-Analysis-Intermediate-Representation" class="headerlink" title="NJU Static Analysis - Intermediate Representation"></a>NJU Static Analysis - Intermediate Representation</h1><p>重点：</p>
+<ul>
+<li><p>编译过程中的IR</p>
+</li>
+<li><p>3AC –&gt; BB –&gt; CFG的构建过程</p>
+</li>
+</ul>
+<h2 id="Complier"><a href="#Complier" class="headerlink" title="Complier"></a>Complier</h2><p>大致过程如下：</p>
+<blockquote>
+<p>词法分析（Scanner）&#x3D;&gt; 生成token</p>
+<p>语法分析（Parser）&#x3D;&gt; 由token解析成AST（非上下文检查，比如只把token组成一个语句而已）</p>
+<p>语义分析（Type Checker） &#x3D;&gt; 上下文基础上进行检查</p>
+<p>然后通过Translator（这个依语言而定）来转成IR（中间表示）</p>
+</blockquote>
+<p><strong>静态分析的对象就是IR</strong></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241720545.png" alt="image-20240323213739799"></p>
+<h2 id="IR"><a href="#IR" class="headerlink" title="IR"></a>IR</h2><p>IR的表示方法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">组织结构 特点</th>
+<th align="left">类型</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Linear IR</td>
+<td align="left">基于线性代码、堆栈机代码</td>
+<td>三地址代码</td>
+</tr>
+<tr>
+<td align="left">Graphical IR</td>
+<td align="left">基于图 抽象语</td>
+<td>抽象语法树、法树、有向无环图、控制流图</td>
+</tr>
+<tr>
+<td align="left">Hybrid IR</td>
+<td align="left">基于图与线性代码混合 LLVM IR</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="3AC"><a href="#3AC" class="headerlink" title="3AC"></a>3AC</h3><p>3地址码</p>
+<ul>
+<li>Some Common 3AC Forms</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241720410.png" alt="image-20240323215258383"></p>
+<blockquote>
+<p>不同静态分析框架中的3AC表示形式不同</p>
+</blockquote>
+<h3 id="SSA"><a href="#SSA" class="headerlink" title="SSA"></a>SSA</h3><p>SSA（Static Single Assignment）</p>
+<blockquote>
+<p>给每个符号都添加下标以区别不同时刻下的符号信息</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>Give each definition a fresh name</li>
+<li>Propagate fresh name to subsequent uses</li>
+<li>Every variable has exactly one definition</li>
+</ul>
+</blockquote>
+<p>需要在控制流图上添加一些新的语句</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706766.png" alt="image-20240324155713331"></p>
+<h2 id="Control-Flow-Analysis"><a href="#Control-Flow-Analysis" class="headerlink" title="Control Flow Analysis"></a>Control Flow Analysis</h2><blockquote>
+<p>3AC &#x3D;&gt; BB &#x3D;&gt; CFG</p>
+</blockquote>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706180.png" alt="image-20240324160508540"></p>
+<h3 id="Basic-Blocks（BB）"><a href="#Basic-Blocks（BB）" class="headerlink" title="Basic Blocks（BB）"></a>Basic Blocks（BB）</h3><blockquote>
+<p>Basic blocks (BB) are maximal sequences of consecutive three-address instructions</p>
+<p>（连续的三地址码序列）</p>
+</blockquote>
+<blockquote>
+<p>BB中的入口只能是BB中的第一句</p>
+<p>结束语句只能是BB中的最后一句</p>
+</blockquote>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706047.png" alt="image-20240324161340952"></p>
+<h4 id="build-Basic-Blocks"><a href="#build-Basic-Blocks" class="headerlink" title="build Basic Blocks"></a>build Basic Blocks</h4><p>每个Basic Blocks中的第一条指令是leader</p>
+<p>我们确定每个Basic Block的本质方法是确定Basic Block中的leader和跳转语句即可</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706583.png" alt="image-20240324165538362"></p>
+<h3 id="Control-Flow-Graph（CFG）"><a href="#Control-Flow-Graph（CFG）" class="headerlink" title="Control Flow Graph（CFG）"></a>Control Flow Graph（CFG）</h3><p>控制流图的构建过程，注重“静态”思维，对于一些永真的判断是不关注的</p>
+<ul>
+<li>CFG的节点是BB</li>
+<li>一个Basic Block到另一个Basic Block之间有且仅有一个edge<ul>
+<li>有条件跳转，相邻块之间需要加edge</li>
+<li>无条件跳转，相邻块之间不需要加edge</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706557.png" alt="image-20240324170233088"></p>
+<ul>
+<li>goto label-value &#x3D;&#x3D;&gt; goto BasicBlock Name</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403241706471.png" alt="image-20240324170558671"></p>
+
       </div>
-    
-      <div class="post-item" title="0day2-Practice">
-        <div class="time-m-d">2024-03-13</div>
-        <div class="title">
-          <a href="/2024/03/13/0day2-Practice/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>0day2-Practice</span>
-              
+              <a href="/2024/03/20/NJU-Static-Analysis-Introduction/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-03-24 17:22:19
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Static-Analysis/" title="Static Analysis">
+                        #Static Analysis
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="之源">
-        <div class="time-m-d">2024-03-10</div>
-        <div class="title">
-          <a href="/2024/03/10/BinSec-Life/">
-            
-              
-                <span>之源</span>
-              
-            
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NJU-Static-Analysis-Intermediate-Representation"><span class="toc-text">NJU Static Analysis - Intermediate Representation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Complier"><span class="toc-text">Complier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IR"><span class="toc-text">IR</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3AC"><span class="toc-text">3AC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSA"><span class="toc-text">SSA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Control-Flow-Analysis"><span class="toc-text">Control Flow Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-Blocks%EF%BC%88BB%EF%BC%89"><span class="toc-text">Basic Blocks（BB）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#build-Basic-Blocks"><span class="toc-text">build Basic Blocks</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Control-Flow-Graph%EF%BC%88CFG%EF%BC%89"><span class="toc-text">Control Flow Graph（CFG）</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">2024-01-14</div>
-        <div class="title">
-          <a href="/2024/01/14/hello-world/">
-            
-              
-                <span>Hello World</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         
 <div class="footer">
@@ -435,6 +590,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + NJU%20Static%20Analysis%20-%20Intermediate%20Representation + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F24%2FNJU-Static-Analysis-Intermediate-Representation%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
