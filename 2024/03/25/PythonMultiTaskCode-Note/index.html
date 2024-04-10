@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2024 
+      PythonMultiTaskCode_Note 
       
       
       |
@@ -108,86 +108,176 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2024</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">PythonMultiTaskCode_Note</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-03-25 16:16:09
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/code/" title="code">
+                    #code
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="Python中的多任务编程"><a href="#Python中的多任务编程" class="headerlink" title="Python中的多任务编程"></a>Python中的多任务编程</h1><p>最近在阅读一些智能合约审计工具的项目的源码时候，发现对这块有点不太清楚，故有了这篇文章</p>
+<h2 id="多进程编程"><a href="#多进程编程" class="headerlink" title="多进程编程"></a>多进程编程</h2><p>进程之间是相互隔离的，在并发编程中，对于多进程更关注进程间通信（资源共享）</p>
+<p>Python多进程编程有三种模式：Spawn、fork、forkserver（主流的是前两者）</p>
+<h3 id="spawn"><a href="#spawn" class="headerlink" title="spawn"></a>spawn</h3><blockquote>
+<p>父进程将数据完全拷贝到子进程空间中，子进程拥有自己的python解释器，启动速度较慢，不会出现竞争条件问题，安全性高</p>
+</blockquote>
+<p>python中有相关库：multiprocessing</p>
+<p>使用方法：</p>
+<ul>
+<li>创建进程对象</li>
+<li>调用<code>start()</code>方法，开启进程的活动</li>
+<li>调用<code>join()</code>方法，在进程结束之前一直等待</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">i</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;called function in process: %s&quot;</span>%i)</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    Process_jobs = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">        p = multiprocessing.Process(target=foo, args=(i,))</span><br><span class="line">        Process_jobs.append(p)</span><br><span class="line">        p.start()</span><br><span class="line">        p.join()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h3 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h3><blockquote>
+<p>父进程除了将必要的启动资源拷贝到子进程空间中，子进程享有Copy-On-Write的父进程资源，启动较快，可能存在竞争问题，安全性较低</p>
+</blockquote>
+<h3 id="forkserver"><a href="#forkserver" class="headerlink" title="forkserver"></a>forkserver</h3><h2 id="多线程编程"><a href="#多线程编程" class="headerlink" title="多线程编程"></a>多线程编程</h2><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://python-parallel-programmning-cookbook.readthedocs.io/zh-cn/latest/chapter3/02_How_to_spawn_a_process.html">https://python-parallel-programmning-cookbook.readthedocs.io/zh-cn/latest/chapter3/02_How_to_spawn_a_process.html</a></li>
+</ol>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-03-25 16:16:09
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/code/" title="code">
+                        #code
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="NJU-Static-Analysis-Data-Flow-Analysis-1">
-        <div class="time-m-d">03-30</div>
-        <div class="title">
-          <a href="/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/">
-            <span>NJU-Static-Analysis-Data-Flow-Analysis-1</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="PythonMultiTaskCode_Note">
-        <div class="time-m-d">03-25</div>
-        <div class="title">
-          <a href="/2024/03/25/PythonMultiTaskCode-Note/">
-            <span>PythonMultiTaskCode_Note</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python%E4%B8%AD%E7%9A%84%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%BC%96%E7%A8%8B"><span class="toc-text">Python中的多任务编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E7%BC%96%E7%A8%8B"><span class="toc-text">多进程编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#spawn"><span class="toc-text">spawn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fork"><span class="toc-text">fork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#forkserver"><span class="toc-text">forkserver</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B"><span class="toc-text">多线程编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="NJU Static Analysis - Intermediate Representation">
-        <div class="time-m-d">03-24</div>
-        <div class="title">
-          <a href="/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/">
-            <span>NJU Static Analysis - Intermediate Representation</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU Static Analysis - Introduction">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2024/03/20/NJU-Static-Analysis-Introduction/">
-            <span>NJU Static Analysis - Introduction</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="0day2-Practice">
-        <div class="time-m-d">03-13</div>
-        <div class="title">
-          <a href="/2024/03/13/0day2-Practice/">
-            <span>0day2-Practice</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Binary-life">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2024/03/10/BinSec-Life/">
-            <span>Binary-life</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">01-14</div>
-        <div class="title">
-          <a href="/2024/01/14/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -444,6 +534,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + PythonMultiTaskCode_Note + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F25%2FPythonMultiTaskCode-Note%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/25/PythonMultiTaskCode-Note/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>

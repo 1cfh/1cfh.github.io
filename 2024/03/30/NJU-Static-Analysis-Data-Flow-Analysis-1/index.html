@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2024 
+      NJU-Static-Analysis-Data-Flow-Analysis-1 
       
       
       |
@@ -108,86 +108,182 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2024</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">NJU-Static-Analysis-Data-Flow-Analysis-1</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-03-30 21:00:47
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Static-Analysis/" title="Static Analysis">
+                    #Static Analysis
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="NJU-Static-Analysis-Data-Flow-Analysis-1"><a href="#NJU-Static-Analysis-Data-Flow-Analysis-1" class="headerlink" title="NJU-Static-Analysis-Data-Flow-Analysis-1"></a>NJU-Static-Analysis-Data-Flow-Analysis-1</h1><h2 id="Data-Flow-Analysis"><a href="#Data-Flow-Analysis" class="headerlink" title="Data Flow Analysis"></a>Data Flow Analysis</h2><blockquote>
+<p>What：</p>
+<p>How Data Flows on CFG</p>
+</blockquote>
+<ul>
+<li>May Analysis 和 Must Analysis</li>
+</ul>
+<blockquote>
+<p>May Analysis</p>
+</blockquote>
+<blockquote>
+<p>Must Analysis</p>
+</blockquote>
+<ul>
+<li>不同的数据流分析</li>
+</ul>
+<p>转移函数 与 控制流信息</p>
+<blockquote>
+<p>different data-flow analysis applications have</p>
+<p>different data abstraction and</p>
+<p>different flow safe-approximation strategies, i.e.,</p>
+<p>different transfer functions and control-flow handlings</p>
+</blockquote>
+<h2 id="Preliminaries-of-Data-Flow-Analysis"><a href="#Preliminaries-of-Data-Flow-Analysis" class="headerlink" title="Preliminaries of Data Flow Analysis"></a>Preliminaries of Data Flow Analysis</h2><h3 id="control-flow"><a href="#control-flow" class="headerlink" title="control flow"></a>control flow</h3><ul>
+<li>IR statement（$s_1$ ，$s_2$，$s_3$）</li>
+<li>program point（input state 和 output state）</li>
+</ul>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240330195245325.png" alt="image-20240330195245325"></p>
+<h3 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h3><blockquote>
+<p>program point  &lt;&#x3D;&gt; data-flow value</p>
+</blockquote>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240330200520251.png" alt="image-20240330200520251"></p>
+<blockquote>
+<p>数据流分析：为所有语句的IN[s]和OUT[s]的一组安全近似导向约束找到一个解决方案</p>
+<ul>
+<li>基于语句语义的约束</li>
+<li>基于控制流的约束</li>
+</ul>
+</blockquote>
+<h2 id="Reaching-Definitions-Analysis（到达定值分析）"><a href="#Reaching-Definitions-Analysis（到达定值分析）" class="headerlink" title="Reaching Definitions Analysis（到达定值分析）"></a>Reaching Definitions Analysis（到达定值分析）</h2><h3 id="What-is-Reaching-Definitions"><a href="#What-is-Reaching-Definitions" class="headerlink" title="What is Reaching Definitions"></a>What is Reaching Definitions</h3><blockquote>
+<p>program point p 处对变量v的定义在q处可达，指p到q有一条路径，且在这条路径中不再存在对v的定义</p>
+</blockquote>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/03/25/PythonMultiTaskCode-Note/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-03-30 21:00:47
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Static-Analysis/" title="Static Analysis">
+                        #Static Analysis
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="NJU-Static-Analysis-Data-Flow-Analysis-1">
-        <div class="time-m-d">03-30</div>
-        <div class="title">
-          <a href="/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/">
-            <span>NJU-Static-Analysis-Data-Flow-Analysis-1</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="PythonMultiTaskCode_Note">
-        <div class="time-m-d">03-25</div>
-        <div class="title">
-          <a href="/2024/03/25/PythonMultiTaskCode-Note/">
-            <span>PythonMultiTaskCode_Note</span>
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NJU-Static-Analysis-Data-Flow-Analysis-1"><span class="toc-text">NJU-Static-Analysis-Data-Flow-Analysis-1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Flow-Analysis"><span class="toc-text">Data Flow Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preliminaries-of-Data-Flow-Analysis"><span class="toc-text">Preliminaries of Data Flow Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#control-flow"><span class="toc-text">control flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstraction"><span class="toc-text">Abstraction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reaching-Definitions-Analysis%EF%BC%88%E5%88%B0%E8%BE%BE%E5%AE%9A%E5%80%BC%E5%88%86%E6%9E%90%EF%BC%89"><span class="toc-text">Reaching Definitions Analysis（到达定值分析）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Reaching-Definitions"><span class="toc-text">What is Reaching Definitions</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="NJU Static Analysis - Intermediate Representation">
-        <div class="time-m-d">03-24</div>
-        <div class="title">
-          <a href="/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/">
-            <span>NJU Static Analysis - Intermediate Representation</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU Static Analysis - Introduction">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2024/03/20/NJU-Static-Analysis-Introduction/">
-            <span>NJU Static Analysis - Introduction</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="0day2-Practice">
-        <div class="time-m-d">03-13</div>
-        <div class="title">
-          <a href="/2024/03/13/0day2-Practice/">
-            <span>0day2-Practice</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Binary-life">
-        <div class="time-m-d">03-10</div>
-        <div class="title">
-          <a href="/2024/03/10/BinSec-Life/">
-            <span>Binary-life</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">01-14</div>
-        <div class="title">
-          <a href="/2024/01/14/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -444,6 +540,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + NJU-Static-Analysis-Data-Flow-Analysis-1 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F30%2FNJU-Static-Analysis-Data-Flow-Analysis-1%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
