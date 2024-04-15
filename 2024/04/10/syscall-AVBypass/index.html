@@ -157,15 +157,15 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-15 19:31:24
+          2024-04-15 19:34:56
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/Attack-and-defense/" title="Attack and defense">
-                    #Attack and defense
+                  <a href="/tags/RedTeam/" title="RedTeam">
+                    #RedTeam
                   </a>
                 </span>
                 
@@ -174,12 +174,12 @@
       </div>
       <div class="markdown-body">
         <h1 id="PEB等结构"><a href="#PEB等结构" class="headerlink" title="PEB等结构"></a>PEB等结构</h1><p>神图</p>
-<p><img src="https://bbs.kanxue.com/upload/attach/202103/867232_UQX698BZWQ7UZ8Y.jpg" alt="img"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151932890.jpeg" alt="img"></p>
 <h1 id="Windows中的API调用机制"><a href="#Windows中的API调用机制" class="headerlink" title="Windows中的API调用机制"></a>Windows中的API调用机制</h1><p>简单来说，Ring3中的kernel32.dll中的函数会调用ntdll.dll中的函数，在ntdll.dll中使用syscall指令从Ring3进入Ring0</p>
 <ul>
 <li>测试：</li>
 </ul>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240307154434280.png" alt="image-20240307154434280"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151932807.png" alt="image-20240307154434280"></p>
 <p>可以发现创建线程</p>
 <p><code>kernel32.dll</code>的<code>CreateThread</code>  &#x3D;&gt; <code>KernelBase.dll</code>的<code>CreateRemoteThreadEx</code> &#x3D;&gt; <code>ntdll.dll</code>的<code>NtCreateThreadEx</code></p>
 <p><code>ntdll.dll</code>中相当于保存着执行功能的函数以及系统调用存根，<code>ntdll.dll</code>导出<code>Windows Native API</code>，具体实现在内核态中的<code>ntoskrnl.exe</code>中</p>
@@ -187,10 +187,10 @@
 <li>使用IDA查看ntdll.dll</li>
 </ul>
 <p>NtCreateThreadEx</p>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240412093259939.png" alt="image-20240412093259939"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933315.png" alt="image-20240412093259939"></p>
 <h1 id="Windows中定位API的原理"><a href="#Windows中定位API的原理" class="headerlink" title="Windows中定位API的原理"></a>Windows中定位API的原理</h1><p>​	定位WinAPI对于开发通用shellcode有着重要意义。</p>
 <p>​	而WinAPI通过动态链接库中的导出函数（可以查看导出表Export Directory）来实现的，比如内存操作等API在kernel32.dll中实现，GUI的相关API在user32.dll中实现。</p>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240413132824494.png" alt="image-20240413132824494"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933819.png" alt="image-20240413132824494"></p>
 <p>​	win32下的shellcode开发通常使用<code>TEB-&gt;PEB-&gt;LDR</code>的思路来找到，具体过程如下：</p>
 <ul>
 <li><p>通过段选择器FS在内存中找到线程环境块TEB</p>
@@ -198,11 +198,11 @@
 <li><p>线程环境块偏移位置为0x30的位置 或者 直接通过GS段寄存器0x30偏移处 获取PEB指针</p>
 </li>
 </ul>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240413133603759.png" alt="image-20240413133603759"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933811.png" alt="image-20240413133603759"></p>
 <ul>
 <li>PEB中偏移位置为0x0C的位置存放着PEB_LDR_DATA结构体的指针，其中存放着被进程装载的动态链接库的信息</li>
 </ul>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240413133948094.png" alt="image-20240413133948094"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933512.png" alt="image-20240413133948094"></p>
 <ul>
 <li>PEB_LDR_DATA结构体中存放着三条链表，这均可以获取API</li>
 </ul>
@@ -210,8 +210,8 @@
 <p>以InlnitializationOrderModuleList为例：</p>
 <p>​	模块初始化链表InlnitializationOrderModuleList中按顺序存放着PE装入运行时初始化模块的信息，第一个链表结点是ntdll.dll，第二个链表结点就是kernel32.dll</p>
 <p>​	到对应模块后，在InInitializationOrderModuleList的0x08偏移处就是ntdll.dll的基址</p>
-<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20240413134602172.png" alt="image-20240413134602172"></p>
-<p><img src="https://blog.eonew.cn/img/locate1.png"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933234.png" alt="image-20240413134602172"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933799.png"></p>
 <h1 id="syscall免杀"><a href="#syscall免杀" class="headerlink" title="syscall免杀"></a>syscall免杀</h1><h2 id="HellsGate"><a href="#HellsGate" class="headerlink" title="HellsGate"></a>HellsGate</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>读取ntdll.dll，解析并遍历ntdll.dll的导出表，然后根据函数名取出函数地址，再用函数指针的方式进行syscall调用，从而绕过Ring3上的hook检测</p>
 <h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><ul>
 <li>获取ldrDataEntry的基址</li>
@@ -219,12 +219,12 @@
 <p>​	HellsGate的作者从InMemoryOrderModuleList出发，最后偏移0x10个字节即可</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PLDR_DATA_TABLE_ENTRY pLdrDataEntry = (PLDR_DATA_TABLE_ENTRY)((PBYTE)pCurrentPeb-&gt;LoaderData-&gt;InMemoryOrderModuleList.Flink-&gt;Flink - <span class="number">0x10</span>);</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog.eonew.cn/img/locate1.png"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933799.png"></p>
 <ul>
 <li>获得ntdll.dll的EAT（Export Address Table）的基地址</li>
 </ul>
 <p>​	这个的前置知识就是PE文件结构</p>
-<p><img src="https://thunderjie.github.io/2019/03/27/PE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/1.jpg" alt="img"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404151933676.jpeg" alt="img"></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">GetImageExportDirectory</span><span class="params">(PVOID pModuleBase, PIMAGE_EXPORT_DIRECTORY* ppImageExportDirectory)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// Get DOS header</span></span><br><span class="line">	PIMAGE_DOS_HEADER pImageDosHeader = (PIMAGE_DOS_HEADER)pModuleBase;</span><br><span class="line">	<span class="keyword">if</span> (pImageDosHeader-&gt;e_magic != IMAGE_DOS_SIGNATURE) &#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get NT headers</span></span><br><span class="line">	PIMAGE_NT_HEADERS pImageNtHeaders = (PIMAGE_NT_HEADERS)((PBYTE)pModuleBase + pImageDosHeader-&gt;e_lfanew);</span><br><span class="line">	<span class="keyword">if</span> (pImageNtHeaders-&gt;Signature != IMAGE_NT_SIGNATURE) &#123;</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the EAT</span></span><br><span class="line">	*ppImageExportDirectory = (PIMAGE_EXPORT_DIRECTORY)((PBYTE)pModuleBase + pImageNtHeaders-&gt;OptionalHeader.DataDirectory[<span class="number">0</span>].VirtualAddress);</span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -307,15 +307,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-15 19:31:24
+              2024-04-15 19:34:56
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/Attack-and-defense/" title="Attack and defense">
-                        #Attack and defense
+                      <a href="/tags/RedTeam/" title="RedTeam">
+                        #RedTeam
                       </a>
                     </span>
                     
