@@ -13,13 +13,13 @@
   
   <title>
     
-      NJU Static Analysis - Introduction 
+      PortSwigger-WebSec-HTTP请求走私 
       
       
       |
     
      Hexo
-  </title>
+  </title><meta name="robots" content="noindex">
 
   
     <link rel="apple-touch-icon" href="/images/hacker.jpg">
@@ -153,19 +153,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">NJU Static Analysis - Introduction</div>
+      <div class="post-title">PortSwigger-WebSec-HTTP请求走私</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-30 11:21:13
+          2024-04-30 11:22:00
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/Static-Analysis/" title="Static Analysis">
-                    #Static Analysis
+                  <a href="/tags/CTF/" title="CTF">
+                    #CTF
                   </a>
                 </span>
                 
@@ -173,131 +173,68 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="NJU-Static-Analysis-Introduction"><a href="#NJU-Static-Analysis-Introduction" class="headerlink" title="NJU Static Analysis - Introduction"></a>NJU Static Analysis - Introduction</h1><blockquote>
-<p>程序分析这块还处于宝宝阶段，故做下课堂笔记</p>
-<p>感谢李老师和谭老师的开源精神~~  :)</p>
-<p>（笔记中的截图来自于两位老师的PPT）</p>
-</blockquote>
-<h2 id="Why？"><a href="#Why？" class="headerlink" title="Why？"></a>Why？</h2><ul>
-<li><p>程序可靠性</p>
-<p>空指针、内存泄露</p>
-</li>
-<li><p>程序安全性</p>
-</li>
-</ul>
-<p>​	检测注入攻击路径</p>
-<ul>
-<li><p>编译优化</p>
-<p>死代码优化、代码移动优化</p>
-</li>
-<li><p>程序理解</p>
-<p>程序调用关系、类型检测</p>
-</li>
-</ul>
-<h2 id="What"><a href="#What" class="headerlink" title="What?"></a>What?</h2><h3 id="Static-Analysis"><a href="#Static-Analysis" class="headerlink" title="Static Analysis"></a>Static Analysis</h3><blockquote>
-<p>给定程序P，在不运行P的情况下，使用静态分析程序对其分析，判断P是否满足特性Q</p>
-</blockquote>
-<h3 id="Rice-Theorem"><a href="#Rice-Theorem" class="headerlink" title="Rice Theorem"></a>Rice Theorem</h3><blockquote>
-<p>&#x3D;&gt; No Perfect static analysis</p>
-</blockquote>
-<h3 id="Perfect-Static-Analysis"><a href="#Perfect-Static-Analysis" class="headerlink" title="Perfect Static Analysis"></a>Perfect Static Analysis</h3><blockquote>
-<p>Sound and Complete &#x3D;&gt; Perfect Static Analysis</p>
-</blockquote>
-<h4 id="What-is-Sound-and-Complete"><a href="#What-is-Sound-and-Complete" class="headerlink" title="What is Sound and Complete"></a>What is Sound and Complete</h4><ul>
-<li><code>Sound</code>：对于程序存在的可能行为不漏报但有错报</li>
-<li><code>Truth</code>：既不错报也不漏报</li>
-<li><code>Complete</code>：漏报</li>
-</ul>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202054529.png" alt="image-20240320191240299"></p>
-<ul>
-<li><code>false negatives</code></li>
-<li><code>false positive</code></li>
-</ul>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143129.png" alt="image-20240320205907751"></p>
-<h3 id="Userful-Static-Analysis"><a href="#Userful-Static-Analysis" class="headerlink" title="Userful Static Analysis"></a>Userful Static Analysis</h3><p>• Compromise soundness (false negatives)</p>
-<p>• Compromise completeness (false positives) </p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143268.png" alt="image-20240320205957189"></p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143143.png" alt="image-20240320205948604"></p>
+        <h1 id="HTTP请求走私"><a href="#HTTP请求走私" class="headerlink" title="HTTP请求走私"></a>HTTP请求走私</h1><p>HTTP请求走私是一种干扰网站处理从一个或多个用户接收的HTTP请求序列的方式的技术</p>
+<p>本质上是一种未授权访问技术</p>
+<h2 id="Web架构及其漏洞风险"><a href="#Web架构及其漏洞风险" class="headerlink" title="Web架构及其漏洞风险"></a>Web架构及其漏洞风险</h2><p>当前的Web应用程序一般使用HTTP服务器链（具体来说就是一个前端服务器，又称为负载均衡器与反向代理）</p>
+<p>然后该前端服务器将请求转发到一台或多台后端服务器</p>
 <blockquote>
-<p>Nowdays, Static Analysis’ trends:</p>
-<p>​	<strong>Sound</strong> <strong>but</strong> <strong>not fully-precise</strong> static analysis</p>
+<p>负载均衡和CDN的区别？</p>
+<p>简单来说，负载均衡是一个反向代理，使用它的目的是能够对请求进行有效的分发。因为当前服务器都是分布式的，对于请求也必须做出区分，在负载均衡的两侧分别是请求池和服务器池，它就是通过各种简易或复杂的算法进行分发请求至最优策略的服务器。对于用户来说，仅仅是将请求发往这个代理，无需管后面的，而对于后端数据库，也不管是哪一个用户来进行调度数据，服务器自己来调就行，有着明显的分隔。</p>
 </blockquote>
-<h4 id="Necessity-of-Soundness"><a href="#Necessity-of-Soundness" class="headerlink" title="Necessity of Soundness"></a>Necessity of Soundness</h4><blockquote>
-<p>Soundness mean more bugs could be found</p>
-</blockquote>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143945.png" alt="image-20240320210737920"></p>
-<h4 id="Example-of-Soundness"><a href="#Example-of-Soundness" class="headerlink" title="Example of Soundness"></a>Example of Soundness</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(input)</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    x = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404282047305.png" alt="image-20240428204729607"></p>
+<p>在这一过程中，前端服务器和后端服务器之间发送的HTTP请求的边界区分显得尤为重要。</p>
+<p>比如攻击者可以走私未授权请求，导致其前端请求的一部分被后端服务器解释为下一个请求的开始</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404282050411.png" alt="image-20240428205003318"></p>
+<h2 id="漏洞产生"><a href="#漏洞产生" class="headerlink" title="漏洞产生"></a>漏洞产生</h2><h3 id="HTTP-1"><a href="#HTTP-1" class="headerlink" title="HTTP&#x2F;1"></a>HTTP&#x2F;1</h3><ul>
+<li><code>Content-Length</code>：指定消息正文的长度（以字节为单位）</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/search</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>normal-website.com</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>11</span><br><span class="line"></span><br><span class="line"><span class="language-abnf"><span class="attribute">q</span><span class="operator">=</span>smuggling</span></span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>Static Analysis Results:</p>
+
+
+<ul>
+<li><code>Transfer-Encoding</code>：用于指定消息正文使用分块编码。这意味着消息正文包含一个或多个数据块，每个块由块大小（以字节为单位）组成，后跟换行符，然后是块内容，消息以大小为零的块终止</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/search</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>normal-website.com</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"></span><br><span class="line"><span class="language-abnf">b</span></span><br><span class="line"><span class="language-abnf"><span class="attribute">q</span><span class="operator">=</span>smuggling</span></span><br><span class="line"><span class="language-abnf"><span class="number">0</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>二者在同一消息中均存在：</li>
+</ul>
+<p>如果 <code>Content-Length</code> 和 <code>Transfer-Encoding</code> 标头都存在，则<code>Transfer-Encoding</code>优先。</p>
+<p>当只有一个服务器在运行时，这可能足以避免歧义。</p>
+<p>但当两个或多个服务器链接在一起时，就无法避免歧义了，原因如下：</p>
 <ol>
-<li><p>When input is true, x &#x3D; 1</p>
-<p>When input is false, x &#x3D; 0</p>
-<p>&#x3D;&gt; sound</p>
+<li><p>Some servers do not support the <code>Transfer-Encoding</code> header in requests.<br>某些服务器不支持请求中的 <code>Transfer-Encoding</code> 标头。	</p>
 </li>
-<li><p>x &#x3D; 1 or x &#x3D; 0</p>
-<p>&#x3D;&gt; sound</p>
-</li>
-<li><p>x &#x3D; 0, 1, 2, 3, 4</p>
-<p>&#x3D;&gt; sound</p>
-</li>
-<li><p>x &#x3D; -1, 0</p>
-<p>&#x3D;&gt; unsound</p>
+<li><p>Some servers that do support the <code>Transfer-Encoding</code> header can be induced not to process it if the header is obfuscated in some way.<br>如果标头以某种方式被混淆，一些支持 <code>Transfer-Encoding</code> 标头的服务器可能会被诱导不处理它。</p>
 </li>
 </ol>
-</blockquote>
-<h3 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h3><p>对于变量进行符号抽象</p>
-<p>一个形象的例子：</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143686.png" alt="image-20240320211524156"></p>
-<ul>
-<li>定义符号之后，那么可以对运算进行相应的定义了</li>
-</ul>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143419.png" alt="image-20240320211649359"></p>
-<p><code>sound</code>：</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202403202143179.png" alt="image-20240320211950981"></p>
-<h3 id="Over-approximation"><a href="#Over-approximation" class="headerlink" title="Over-approximation"></a>Over-approximation</h3><blockquote>
-<p>Control flow (from wiki) :</p>
-<p>control flow is the <strong>order</strong> in which individual <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Statement_(computer_science)">statements</a>, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Instruction_(computer_science)">instructions</a> or <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Function_call">function calls</a> of an <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Imperative_programming">imperative</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer_program">program</a> are <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Execution_(computing)">executed</a> or evaluated</p>
-</blockquote>
-<blockquote>
-<p>Control flow Statement（控制流语句）</p>
-<ul>
-<li>无条件分支或跳转</li>
-<li>条件分支</li>
-<li>循环判断分支</li>
-<li>子例程、协程</li>
-<li>无条件停止</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>程序分析中难免会碰到路径爆炸问题</p>
-<p>我们通常采用flow merge</p>
-<p>来完成Over-approximation</p>
-</blockquote>
-
+<h3 id="关于HTTP-2"><a href="#关于HTTP-2" class="headerlink" title="关于HTTP&#x2F;2"></a>关于HTTP&#x2F;2</h3><p>使用 <code>HTTP/2</code> 端到端的网站本质上不会受到请求走私攻击。由于 <code>HTTP/2</code> 规范引入了一个单一、强大的机制来指定请求的长度，因此攻击者无法引入所需的歧义。</p>
+<p>然而，许多网站都有一个支持 <code>HTTP/2</code> 的前端服务器，但却将其部署在仅支持 <code>HTTP/1</code> 的后端基础设施前面。这意味着前端必须有效地将其接收到的请求转换为 <code>HTTP/1</code>。此过程称为 HTTP 降级。</p>
+<h2 id="漏洞利用和WP"><a href="#漏洞利用和WP" class="headerlink" title="漏洞利用和WP"></a>漏洞利用和WP</h2><h3 id="前端CL，后端TE"><a href="#前端CL，后端TE" class="headerlink" title="前端CL，后端TE"></a>前端CL，后端TE</h3><p>条件：前端服务器使用<code>Content-Length</code>标头，后端服务器使用<code>Transfer-Encoding</code>标头</p>
+<!-- flag of hidden posts -->
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/03/13/0day2-Practice/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
           </div>
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-30 11:21:13
+              2024-04-30 11:22:00
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/Static-Analysis/" title="Static Analysis">
-                        #Static Analysis
+                      <a href="/tags/CTF/" title="CTF">
+                        #CTF
                       </a>
                     </span>
                     
@@ -305,11 +242,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -323,7 +255,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NJU-Static-Analysis-Introduction"><span class="toc-text">NJU Static Analysis - Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why%EF%BC%9F"><span class="toc-text">Why？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What"><span class="toc-text">What?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Static-Analysis"><span class="toc-text">Static Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rice-Theorem"><span class="toc-text">Rice Theorem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Perfect-Static-Analysis"><span class="toc-text">Perfect Static Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#What-is-Sound-and-Complete"><span class="toc-text">What is Sound and Complete</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Userful-Static-Analysis"><span class="toc-text">Userful Static Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Necessity-of-Soundness"><span class="toc-text">Necessity of Soundness</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example-of-Soundness"><span class="toc-text">Example of Soundness</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstraction"><span class="toc-text">Abstraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Over-approximation"><span class="toc-text">Over-approximation</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81"><span class="toc-text">HTTP请求走私</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%85%B6%E6%BC%8F%E6%B4%9E%E9%A3%8E%E9%99%A9"><span class="toc-text">Web架构及其漏洞风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F"><span class="toc-text">漏洞产生</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-1"><span class="toc-text">HTTP&#x2F;1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EHTTP-2"><span class="toc-text">关于HTTP&#x2F;2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%92%8CWP"><span class="toc-text">漏洞利用和WP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AFCL%EF%BC%8C%E5%90%8E%E7%AB%AFTE"><span class="toc-text">前端CL，后端TE</span></a></li></ol></li></ol></li></ol>
       
     </div>
   </div>
@@ -611,12 +543,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + NJU%20Static%20Analysis%20-%20Introduction + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F03%2F20%2FNJU-Static-Analysis-Introduction%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + PortSwigger-WebSec-HTTP%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F04%2F28%2Fhttp-request-smuggling%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/03/20/NJU-Static-Analysis-Introduction/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/04/28/http-request-smuggling/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
