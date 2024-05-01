@@ -157,7 +157,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-01 19:58:32
+          2024-05-01 20:06:36
         </span>
         
               <span class="post-tags">
@@ -246,16 +246,16 @@
 
 <p>定义可达性分析可以用来检测源代码中的未定义变量，检测思路：CFG入口处为源代码中的所有变量引入dummy definition，如果最终某个变量v的dummy definition能够达到该变量使用的program point，则变量v为未定义变量</p>
 <h3 id="bit-vector"><a href="#bit-vector" class="headerlink" title="bit vector"></a>bit vector</h3><blockquote>
-<p>使用bit vector的数据结构来表示：对于某个Program Point（记为p），$$D_i$$在该处置为1 &lt;&#x3D;&gt; $$D_i$$​处的变量定义经过某个BB后能够到达p</p>
+<p>使用bit vector的数据结构来表示：对于某个Program Point（记为p），$D_i$在该处置为1 &lt;&#x3D;&gt; $D_i$​处的变量定义经过某个BB后能够到达p</p>
 </blockquote>
-<p>​	比如下图中的蓝色箭头中的<code>1100 0000</code>，表示$$D_1$$这条definition中的变量x在经过B2后能够到达</p>
+<p>​	比如下图中的蓝色箭头中的<code>1100 0000</code>，表示$D_1$这条definition中的变量x在经过B2后能够到达</p>
 <p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405011956796.png" alt="image-20240501195618460"></p>
 <h3 id="Transfer-Function和Control-Flow-约束"><a href="#Transfer-Function和Control-Flow-约束" class="headerlink" title="Transfer Function和Control Flow 约束"></a>Transfer Function和Control Flow 约束</h3><ul>
 <li>Transfer Function（转移函数）约束</li>
 </ul>
 <p>​	Gen指当前BB中存有的definition，而Kill指当前块中存有的definition对应的变量对应的其他definition</p>
 <blockquote>
-<p>例子：$$B_1$$块中有$$d_1$$、$$d_2$$、$$d_3$$三条definition（记为<code>gen</code>），其对应变量为<code>i</code>、<code>j</code>、<code>a</code>，这三个变量有关的、且在其他BB的definition有$$d_4$$、$$d_5$$、$$d_6$$、$$d_7$$（记为<code>kill</code>）</p>
+<p>例子：B1块中有$d_1$、$d_2$、$d_3$三条definition（记为<code>gen</code>），其对应变量为<code>i</code>、<code>j</code>、<code>a</code>，这三个变量有关的、且在其他BB的definition有$d_4$、$d_5$、$d_6$、$d_7$（记为<code>kill</code>）</p>
 </blockquote>
 <p>​	一个BB的gen和kill都可以直接通过扫描所有BB来确定</p>
 <p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202404302223446.png" alt="image-20240430220521445"></p>
@@ -271,7 +271,7 @@
 <p>​	例子：参考课程PPT，跟一遍就能体悟到</p>
 <h4 id="算法停止的时机"><a href="#算法停止的时机" class="headerlink" title="算法停止的时机"></a>算法停止的时机</h4><p>​	这是整个算法的灵魂，重点在于<code>transfer function</code>的设计</p>
 <p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405011958821.png" alt="image-20240501190302838"></p>
-<p>​	对于一个已经构建好的控制流图，其$$gen_B$$和$$kill_B$$是固定的，所以能在多层迭代中存留的1必定会一直存留，所以正如课中所言，bit vector中每一位的最终结果必然是<code>0-&gt;1</code>或<code>1-&gt;1</code>，同时definition的个数为有限。</p>
+<p>​	对于一个已经构建好的控制流图，其gen[B]和kill[B]是固定的，所以能在多层迭代中存留的1必定会一直存留，所以正如课中所言，bit vector中每一位的最终结果必然是<code>0-&gt;1</code>或<code>1-&gt;1</code>，同时definition的个数为有限。</p>
 <p>​	所以必然存在一个bit vector的状态上界，等到某轮迭代结束后到达这个上界，使得算法停止</p>
 
       </div>
@@ -288,7 +288,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-01 19:58:32
+              2024-05-01 20:06:36
             </span>
             
                   <span class="post-tags">
