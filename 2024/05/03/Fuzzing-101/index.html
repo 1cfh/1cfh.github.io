@@ -13,7 +13,7 @@
   
   <title>
     
-      WSL Ubuntu与Windows的环境变量管理 
+      Fuzzing101-复现记录 
       
       
       |
@@ -153,19 +153,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">WSL Ubuntu与Windows的环境变量管理</div>
+      <div class="post-title">Fuzzing101-复现记录</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-02 12:40:51
+          2024-05-03 22:00:59
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/WSL/" title="WSL">
-                    #WSL
+                  <a href="/tags/Fuzz/" title="Fuzz">
+                    #Fuzz
                   </a>
                 </span>
                 
@@ -173,27 +173,112 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="WSL与Windows的环境变量管理"><a href="#WSL与Windows的环境变量管理" class="headerlink" title="WSL与Windows的环境变量管理"></a>WSL与Windows的环境变量管理</h1><p>在WSL2中默认可以获取宿主机中的环境变量，从而会导致混淆等错误</p>
-<p>隔离方法如下</p>
-<p>创建<code>/etc/wsl.conf</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">touch</span> /etc/wsl.conf</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>学长搞Fuzz毕设，顺道跟着学了点</p>
+<p>寒假时，主要跟着Github上的<a target="_blank" rel="noopener" href="https://github.com/antonio-morales/Fuzzing101">Fuzzing-101</a>的项目学习复现</p>
+</blockquote>
+<h1 id="Exercise1-Xpdf"><a href="#Exercise1-Xpdf" class="headerlink" title="Exercise1 - Xpdf"></a>Exercise1 - Xpdf</h1><blockquote>
+<p>目标：fuzz Xpdf PDF查看器，在Xpdf 3.02中查找 CVE-2019-13208 崩溃</p>
+</blockquote>
+<h2 id="使用afl-clang-fast编译器构建Xpdf（插桩）"><a href="#使用afl-clang-fast编译器构建Xpdf（插桩）" class="headerlink" title="使用afl-clang-fast编译器构建Xpdf（插桩）"></a>使用afl-clang-fast编译器构建Xpdf（插桩）</h2><p>导入llvm环境变量，指明llvm的版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LLVM_CONFIG=&quot;llvm-config-11&quot;</span><br></pre></td></tr></table></figure>
 
-<p>然后修改内容为</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[interop]</span><br><span class="line">appendWindowsPath = false</span><br></pre></td></tr></table></figure>
+<p>指定编译器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC=$HOME/AFLplusplus/afl-clang-fast CXX=$HOME/AFLplusplus/afl-clang-fast++ ./configure --prefix=&quot;$HOME/fuzzing_xpdf/install/&quot;</span><br></pre></td></tr></table></figure>
 
-<p>重启<code>wsl</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure>
+<p>编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021240386.png" alt="image-20240502124023025"></p>
+<h2 id="运行afl-fuzz"><a href="#运行afl-fuzz" class="headerlink" title="运行afl-fuzz"></a>运行afl-fuzz</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">afl-fuzz -i $HOME/fuzzing_xpdf/pdf_examples/ -o $HOME/fuzzing_xpdf/out/ -s 123 -- $HOME/fuzzing_xpdf/install/bin/pdftotext @@ $HOME/fuzzing_xpdf/output</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>-i</code>：输入案例的目录</p>
+<p><code>-o</code>：存储AFL存储突变文件的目录</p>
+<p><code>-s</code>：指定静态伪随机数种子</p>
+<p><code>--</code>：指向<code>afl-fuzz</code>的输入案例的具体样本</p>
+<p><code>@@</code>：文件占位符，为<code>-i</code>目录中具体文件</p>
+<h2 id="处理报错"><a href="#处理报错" class="headerlink" title="处理报错"></a>处理报错</h2><p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401141754952.png" alt="image-20240114175354734"></p>
+<p><code>export</code>环境变量<code>AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1</code></p>
+<p>然后开始运行<code>fuzz</code></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251049.png" alt="image-20240114175755242"></p>
+<p>此处我们主要看<code>overall results</code>中的<code>crashes</code>提示</p>
+<h2 id="处理崩溃：调试"><a href="#处理崩溃：调试" class="headerlink" title="处理崩溃：调试"></a>处理崩溃：调试</h2><p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251456.png" alt="image-20240114180711467"></p>
+<p>首先获取符号表(<code>-g</code> 标志会在可执行文件中包含调试符号表（debug symbol table）)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rm -r $HOME/fuzzing_xpdf/install</span><br><span class="line">cd $HOME/fuzzing_xpdf/xpdf-3.02/</span><br><span class="line">make clean</span><br><span class="line">CFLAGS=&quot;-g -O0&quot; CXXFLAGS=&quot;-g -O0&quot; ./configure --prefix=&quot;$HOME/fuzzing_xpdf/install/&quot;</span><br><span class="line">make</span><br><span class="line">make install </span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用gdb调试<code>pdftotext</code>文件，同时需要注入崩溃样本</p>
+<p>（pdftotext的参数为一个输入样本，然后输出文本到output中）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb --args /home/fuzz/fuzzing_xpdf/install/bin/pdftotext /home/fuzz/fuzzing_xpdf/out/default/crashes/id:000002,sig:11,src:001614,time:402229,execs:262135,op:havoc,rep:4 /home/fuzz/fuzzing_xpdf/output</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>调试分析</p>
+<p>无限递归调用，完成Dos攻击</p>
+</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251961.png" alt="image-20240115173303979"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>学会看源码项目的测试</li>
+<li>学会AFL的基本使用</li>
+</ol>
+<h1 id="Exercise-2-libexif-0-16-14-Fuzz"><a href="#Exercise-2-libexif-0-16-14-Fuzz" class="headerlink" title="Exercise 2 - libexif 0.16.14 Fuzz"></a>Exercise 2 - libexif 0.16.14 Fuzz</h1><h2 id="libexif和exif是什么？"><a href="#libexif和exif是什么？" class="headerlink" title="libexif和exif是什么？"></a>libexif和exif是什么？</h2><p>libexif是一个可移植C语言编写的库，作用是从图像文件读取和写入EXIF元信息</p>
+<p>exif是一种图片格式</p>
+<p>我们需要使用libexif解析exif</p>
+<h2 id="构建libexif"><a href="#构建libexif" class="headerlink" title="构建libexif"></a>构建libexif</h2><p>从GitHub上wget对应的demo版本后</p>
+<p>安装工具链</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install autopoint libtool gettext libpopt-dev</span><br></pre></td></tr></table></figure>
+
+<p>然后使用autoreconf生成Makefile，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -fvi</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f 强制生成文件</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-v 显示详细的输出信息</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-i 自动运行aclocal和autoheader</span></span><br></pre></td></tr></table></figure>
+
+<p>静态编译，并指定生成路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-shared=no --prefix=&quot;/home/fuzz/fuzzing_libexif/install&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="构建exif并调用libexif解析"><a href="#构建exif并调用libexif解析" class="headerlink" title="构建exif并调用libexif解析"></a>构建exif并调用libexif解析</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -fvi</span><br></pre></td></tr></table></figure>
+
+<p>然后静态编译，并指明<code>pc</code>文件路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --enable-shared=no --prefix=&quot;/home/fuzz/fuzzing_libexif/install&quot; PGP_CONFIG_PATH=/home/fuzz/fuzzing_libexif/install/lib/pkgconfig</span><br></pre></td></tr></table></figure>
+
+<p>然后编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>去网上找了个exif图片格式的图片仓库：<a target="_blank" rel="noopener" href="https://github.com/ianare/exif-samples">https://github.com/ianare/exif-samples</a></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251733.png" alt="image-20240119224157553"></p>
+<h2 id="使用AFL-Clang-Fast进行构建"><a href="#使用AFL-Clang-Fast进行构建" class="headerlink" title="使用AFL-Clang-Fast进行构建"></a>使用AFL-Clang-Fast进行构建</h2><p>老规矩删除之前的编译产物</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -r /home/fuzz/fuzzing_libexif/install</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在libexif下</span></span><br><span class="line">make clean</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>报错修复：</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251681.png" alt="image-20240119225157087"></p>
+<p>​	删除对应注释，使得clean-apidocs规则生效</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401192251774.png" alt="image-20240119225050204"></p>
+<p>​	指定编译器后开始测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb --args /home/fuzz/fuzzing_libexif/install/bin/exif /home/fuzz/fuzzing_libexif/out/default/crashes/id:000000,sig:11,src:000008,time:20982,execs:24217,op:havoc,rep:1 /home/fuzz/fuzzing_libexif/output</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（还不怎么会二进制的漏洞利用，成因也就不分析了）</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202401201035271.png" alt="image-20240120103510186"></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/05/02/2024-D3CTF-Review/" target="_self">
+              <a href="/2024/05/02/wsl-path-manage/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -202,15 +287,15 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-02 12:40:51
+              2024-05-03 22:00:59
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/WSL/" title="WSL">
-                        #WSL
+                      <a href="/tags/Fuzz/" title="Fuzz">
+                        #Fuzz
                       </a>
                     </span>
                     
@@ -218,11 +303,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/05/03/Fuzzing-101/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -236,7 +316,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WSL%E4%B8%8EWindows%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86"><span class="toc-text">WSL与Windows的环境变量管理</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exercise1-Xpdf"><span class="toc-text">Exercise1 - Xpdf</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8afl-clang-fast%E7%BC%96%E8%AF%91%E5%99%A8%E6%9E%84%E5%BB%BAXpdf%EF%BC%88%E6%8F%92%E6%A1%A9%EF%BC%89"><span class="toc-text">使用afl-clang-fast编译器构建Xpdf（插桩）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8Cafl-fuzz"><span class="toc-text">运行afl-fuzz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%8A%A5%E9%94%99"><span class="toc-text">处理报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%B4%A9%E6%BA%83%EF%BC%9A%E8%B0%83%E8%AF%95"><span class="toc-text">处理崩溃：调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Exercise-2-libexif-0-16-14-Fuzz"><span class="toc-text">Exercise 2 - libexif 0.16.14 Fuzz</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#libexif%E5%92%8Cexif%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">libexif和exif是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAlibexif"><span class="toc-text">构建libexif</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAexif%E5%B9%B6%E8%B0%83%E7%94%A8libexif%E8%A7%A3%E6%9E%90"><span class="toc-text">构建exif并调用libexif解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8AFL-Clang-Fast%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA"><span class="toc-text">使用AFL-Clang-Fast进行构建</span></a></li></ol></li></ol>
       
     </div>
   </div>
@@ -524,12 +604,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + WSL%20Ubuntu%E4%B8%8EWindows%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%AE%A1%E7%90%86 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F02%2Fwsl-path-manage%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Fuzzing101-%E5%A4%8D%E7%8E%B0%E8%AE%B0%E5%BD%95 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F03%2FFuzzing-101%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/05/02/wsl-path-manage/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/05/03/Fuzzing-101/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
