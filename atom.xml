@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-04T12:08:27.880Z</updated>
+  <updated>2024-05-10T02:57:58.915Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,15 +17,26 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>go_test_note</title>
-    <link href="http://example.com/2024/05/04/go-test-note/"/>
-    <id>http://example.com/2024/05/04/go-test-note/</id>
-    <published>2024-05-04T12:08:27.000Z</published>
-    <updated>2024-05-04T12:08:27.880Z</updated>
+    <title>【Debug】phpweb+phpstorm调试记录</title>
+    <link href="http://example.com/2024/05/10/php-web-debug/"/>
+    <id>http://example.com/2024/05/10/php-web-debug/</id>
+    <published>2024-05-10T01:15:54.000Z</published>
+    <updated>2024-05-10T02:57:58.915Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;之前配置过了好多次，但是每次都忘了怎么配置，所以打算记录一下&lt;/p&gt;
+&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
     
+    <category term="Debug" scheme="http://example.com/tags/Debug/"/>
     
   </entry>
   
