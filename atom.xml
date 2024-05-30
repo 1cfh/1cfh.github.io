@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-11T15:04:03.134Z</updated>
+  <updated>2024-05-30T03:32:46.532Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,26 +17,48 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>vulntarget-c</title>
-    <link href="http://example.com/2024/05/11/vulntarget-c/"/>
-    <id>http://example.com/2024/05/11/vulntarget-c/</id>
-    <published>2024-05-11T13:13:12.000Z</published>
-    <updated>2024-05-11T15:04:03.134Z</updated>
+    <title>【编译原理】普拉特解析学习笔记</title>
+    <link href="http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/"/>
+    <id>http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/</id>
+    <published>2024-05-27T02:18:58.000Z</published>
+    <updated>2024-05-30T03:32:46.532Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;记录一下打&lt;code&gt;vulntarget-c&lt;/code&gt;时学习到的新东西&lt;/p&gt;
-&lt;h1 id=&quot;提权&quot;&gt;&lt;a href=&quot;#提权&quot; class=&quot;headerlink&quot; title=&quot;提权&quot;&gt;&lt;/a&gt;提权&lt;/h1&gt;&lt;h2 id=&quot;msf补丁扫描&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;普拉特解析学习笔记&quot;&gt;&lt;a href=&quot;#普拉特解析学习笔记&quot; class=&quot;headerlink&quot; title=&quot;普拉特解析学习笔记&quot;&gt;&lt;/a&gt;普拉特解析学习笔记&lt;/h1&gt;&lt;h2 id=&quot;原理分析&quot;&gt;&lt;a href=&quot;#原理分析&quot;</summary>
         
       
     
     
     
     
-    <category term="Penetration" scheme="http://example.com/tags/Penetration/"/>
+    <category term="Compilers" scheme="http://example.com/tags/Compilers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pyjail记录</title>
+    <link href="http://example.com/2024/05/22/pyjail/"/>
+    <id>http://example.com/2024/05/22/pyjail/</id>
+    <published>2024-05-22T13:36:28.000Z</published>
+    <updated>2024-05-22T13:40:38.711Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;超全笔记：&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
     
   </entry>
   
