@@ -13,13 +13,13 @@
   
   <title>
     
-      pyjail记录 
+      使用python栈帧进行逃逸的探究 
       
       
       |
     
      Hexo
-  </title><meta name="robots" content="noindex">
+  </title>
 
   
     <link rel="apple-touch-icon" href="/images/hacker.jpg">
@@ -154,11 +154,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">pyjail记录</div>
+      <div class="post-title">使用python栈帧进行逃逸的探究</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-05-30 11:35:16
+          2024-06-01 20:40:40
         </span>
         
               <span class="post-tags">
@@ -174,19 +174,82 @@
           
       </div>
       <div class="markdown-body">
-        <p>超全笔记：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/12647?time__1311=mqmhDvqIrrGNDQtiQGkIDkW5D=eQ9G4mD&alichlgref=https://www.google.com/#toc-1">https://xz.aliyun.com/t/12647?time__1311=mqmhDvqIrrGNDQtiQGkIDkW5D%3DeQ9G4mD&amp;alichlgref=https%3A%2F%2Fwww.google.com%2F#toc-1</a></p>
-<p>主要记录一点感兴趣的部分</p>
-<h1 id="pyjail学习记录"><a href="#pyjail学习记录" class="headerlink" title="pyjail学习记录"></a>pyjail学习记录</h1><!-- flag of hidden posts -->
+        <h1 id="一次使用python栈帧进行逃逸的demo探究"><a href="#一次使用python栈帧进行逃逸的demo探究" class="headerlink" title="一次使用python栈帧进行逃逸的demo探究"></a>一次使用python栈帧进行逃逸的demo探究</h1><h2 id="起"><a href="#起" class="headerlink" title="起"></a>起</h2><blockquote>
+<p>为什么会有这篇文章？</p>
+</blockquote>
+<p>起初，我在讨论群里发起讨论，起初我只是不太理解这个demo为什么不能逃逸（即为什么<code>f_back</code>后为<code>None</code>）</p>
+<p>可惜群友们也不太清楚诶&#x2F;(ㄒoㄒ)&#x2F;~~</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406011940858.png" alt="image-20240601193716401"></p>
+<p>于是打算研究下。</p>
+<p>后面把demo完善，也就抽象出来了这个问题：<strong>使用栈帧逃逸的本质是什么？</strong></p>
+<h2 id="承"><a href="#承" class="headerlink" title="承"></a>承</h2><p>我把最终的demo设计成这样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&quot;flag&#123;test&#125;&quot;</span></span><br><span class="line">codes = <span class="string">&#x27;&#x27;&#x27;import pdb</span></span><br><span class="line"><span class="string"># 生成器函数</span></span><br><span class="line"><span class="string">def f():</span></span><br><span class="line"><span class="string">    while True:</span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame in f:&quot;, g.gi_frame)       </span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame.f_back in f:&quot;, g.gi_frame.f_back)</span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame.f_back.f_back in f:&quot;, g.gi_frame.f_back.f_back)</span></span><br><span class="line"><span class="string">        # pdb.set_trace()</span></span><br><span class="line"><span class="string">        yield g.gi_frame.f_back</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">g = f()                     </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">frame = next(g)             </span></span><br><span class="line"><span class="string">next(g)</span></span><br><span class="line"><span class="string">next(g)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">frame2 = g.gi_frame         </span></span><br><span class="line"><span class="string"># pdb.set_trace()</span></span><br><span class="line"><span class="string">print(frame2)</span></span><br><span class="line"><span class="string">print(frame2.f_back)      # None</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">locals</span> = &#123;&#125;</span><br><span class="line">code = <span class="built_in">compile</span>(codes,<span class="string">&quot;test2&quot;</span>,<span class="string">&quot;exec&quot;</span>)</span><br><span class="line"><span class="built_in">exec</span>(code, <span class="built_in">locals</span>)</span><br></pre></td></tr></table></figure>
+
+<p>​	尝试执行后的结果下图。</p>
+<p>​	可以发现三次<code>next</code>后结果大差不差，区别就在<code>g.gi_frame.f_back</code>中的行号：</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406011943425.png" alt="image-20240601194247087"></p>
+<p>​	</p>
+<p>​	仔细比对，可以发现刚好对应的就是三次<code>next</code>在<code>codes</code>中的行号，这就是在不同位置调用生成器函数<code>f</code>时，在生成器函数<code>f</code>中<code>gi_frame.f_back</code>的对应栈帧在不同位置，同时我们注意到一个细节<code>print(&quot;g.gi_frame in f:&quot;, g.gi_frame) </code>和<code>print(frame2)</code>的打印结果不同，但是它们确实是同一个对象（<code>print(is)</code>进行确认）</p>
+<h2 id="转"><a href="#转" class="headerlink" title="转"></a>转</h2><p>这里也就要开始涉及python虚拟机底层的知识了</p>
+<ul>
+<li>首先是栈帧的数据结构</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> &#123;</span></span><br><span class="line">    PyObject_VAR_HEAD</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">frame</span> *<span class="title">f_back</span>;</span>      <span class="comment">/* previous frame, or NULL */</span></span><br><span class="line">    PyCodeObject *f_code;       <span class="comment">/* code segment */</span></span><br><span class="line">    PyObject *f_builtins;       <span class="comment">/* builtin symbol table (PyDictObject) */</span></span><br><span class="line">    PyObject *f_globals;        <span class="comment">/* global symbol table (PyDictObject) */</span></span><br><span class="line">    PyObject *f_locals;         <span class="comment">/* local symbol table (any mapping) */</span></span><br><span class="line">    PyObject **f_valuestack;    <span class="comment">/* points after the last local */</span></span><br><span class="line">    <span class="comment">/* Next free slot in f_valuestack.  Frame creation sets to f_valuestack.</span></span><br><span class="line"><span class="comment">       Frame evaluation usually NULLs it, but a frame that yields sets it</span></span><br><span class="line"><span class="comment">       to the current stack top. */</span></span><br><span class="line">    PyObject **f_stacktop;</span><br><span class="line">    PyObject *f_trace;          <span class="comment">/* Trace function */</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">/* In a generator, we need to be able to swap between the exception</span></span><br><span class="line"><span class="comment">       state inside the generator and the exception state of the calling</span></span><br><span class="line"><span class="comment">       frame (which shouldn&#x27;t be impacted when the generator &quot;yields&quot;</span></span><br><span class="line"><span class="comment">       from an except handler).</span></span><br><span class="line"><span class="comment">       These three fields exist exactly for that, and are unused for</span></span><br><span class="line"><span class="comment">       non-generator frames. See the save_exc_state and swap_exc_state</span></span><br><span class="line"><span class="comment">       functions in ceval.c for details of their use. */</span></span><br><span class="line">    PyObject *f_exc_type, *f_exc_value, *f_exc_traceback;</span><br><span class="line">    <span class="comment">/* Borrowed reference to a generator, or NULL */</span></span><br><span class="line">    PyObject *f_gen;</span><br><span class="line"> </span><br><span class="line">    <span class="type">int</span> f_lasti;                <span class="comment">/* Last instruction if called */</span></span><br><span class="line">    <span class="comment">/* Call PyFrame_GetLineNumber() instead of reading this field</span></span><br><span class="line"><span class="comment">       directly.  As of 2.3 f_lineno is only valid when tracing is</span></span><br><span class="line"><span class="comment">       active (i.e. when f_trace is set).  At other times we use</span></span><br><span class="line"><span class="comment">       PyCode_Addr2Line to calculate the line from the current</span></span><br><span class="line"><span class="comment">       bytecode index. */</span></span><br><span class="line">    <span class="type">int</span> f_lineno;               <span class="comment">/* Current line number */</span></span><br><span class="line">    <span class="type">int</span> f_iblock;               <span class="comment">/* index in f_blockstack */</span></span><br><span class="line">    <span class="type">char</span> f_executing;           <span class="comment">/* whether the frame is still executing */</span></span><br><span class="line">    PyTryBlock f_blockstack[CO_MAXBLOCKS]; <span class="comment">/* for try and loop blocks */</span></span><br><span class="line">    PyObject *f_localsplus[<span class="number">1</span>];  <span class="comment">/* locals+stack, dynamically sized */</span></span><br><span class="line">&#125; PyFrameObject;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>栈帧的创建和销毁</li>
+</ul>
+<p>​	栈帧的创建和销毁是动态的，随着函数的调用和返回而不断发生。当一个函数被调用时，一个新的栈帧会被创建并推入调用栈，当函数调用结束后，对应的栈帧会从调用栈中弹出并销毁</p>
+<ul>
+<li>函数调用栈</li>
+</ul>
+<p><code>f_back</code>串起了栈帧列表：</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406012040006.png" alt="img"></p>
+<h2 id="合"><a href="#合" class="headerlink" title="合"></a>合</h2><p>其实到这里也渐渐明晰了</p>
+<blockquote>
+<p>在 Python 中，一个栈帧的 <code>f_back</code> 属性指向调用它的栈帧。<strong>对于在模块（全局）级别执行的代码，其所在的栈帧的 <code>f_back</code> 通常是 <code>None</code>，因为这些代码并没有被另一个函数或方法调用，实际上，它们是在模块的顶级或全局作用域内执行的</strong>。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">key = <span class="string">&quot;flag&#123;test&#125;&quot;</span></span><br><span class="line">codes = <span class="string">&#x27;&#x27;&#x27;import pdb</span></span><br><span class="line"><span class="string"># 生成器函数</span></span><br><span class="line"><span class="string">def f():</span></span><br><span class="line"><span class="string">    while True:</span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame in f:&quot;, g.gi_frame)       </span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame.f_back in f:&quot;, g.gi_frame.f_back)</span></span><br><span class="line"><span class="string">        print(&quot;g.gi_frame.f_back.f_back in f:&quot;, g.gi_frame.f_back.f_back)</span></span><br><span class="line"><span class="string">        # pdb.set_trace()</span></span><br><span class="line"><span class="string">        yield g.gi_frame.f_back</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">g = f()                     </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">frame = next(g)             </span></span><br><span class="line"><span class="string">next(g)</span></span><br><span class="line"><span class="string">next(g)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">frame2 = g.gi_frame         </span></span><br><span class="line"><span class="string"># pdb.set_trace()</span></span><br><span class="line"><span class="string">print(frame2)</span></span><br><span class="line"><span class="string">print(frame2.f_back)      # None</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">locals</span> = &#123;&#125;</span><br><span class="line">code = <span class="built_in">compile</span>(codes,<span class="string">&quot;test2&quot;</span>,<span class="string">&quot;exec&quot;</span>)</span><br><span class="line"><span class="built_in">exec</span>(code, <span class="built_in">locals</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（先后解开代码中的两处pdb注释可得如下结果）</p>
+<ul>
+<li>函数外</li>
+</ul>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406012040981.png" alt="image-20240601202724116"></p>
+<p>直接在全局下使用<code>g.gi_frame</code>获取到的栈帧对象，是直接指向<code>&lt;model&gt;</code>全局的，回退之后为<code>None</code>（对于在模块（全局）级别执行的代码，其所在的栈帧的 <code>f_back</code> 通常是 <code>None</code>）</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406012040244.png" alt="image-20240601202909134"></p>
+<ul>
+<li><p>函数内的栈帧分析</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406012040598.png" alt="image-20240601202643113"></p>
+</li>
+</ul>
+<p>​	能从<code>f()</code>栈帧回退拿到<code>codes</code>所在的”全局”栈帧，再回退就能拿到<code>exec</code>所在的栈帧了，此为逃逸</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202406012040767.png" alt="image-20240601203606382"></p>
+<ul>
+<li>回过头来，再回答开头这个问题：<strong>使用栈帧逃逸的本质是什么？</strong>或者说我们需要拿到什么？</li>
+</ul>
+<blockquote>
+<p>可以发现，我们应该要拿到调用栈上的一个<strong>函数栈帧</strong></p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Chang-LeHung/p/17351403.html">https://www.cnblogs.com/Chang-LeHung/p/17351403.html</a></p>
+
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
+              <a href="/2024/05/21/2024-CISCN-Review/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
           </div>
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-05-30 11:35:16
+              2024-06-01 20:40:40
             </span>
             
                   <span class="post-tags">
@@ -203,6 +266,11 @@
           </div>
           <div class="post-foot-prev">
             
+              <a href="/2024/05/27/Pratt-Parsers-WorkingMode/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -215,7 +283,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pyjail%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-text">pyjail学习记录</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E4%BD%BF%E7%94%A8python%E6%A0%88%E5%B8%A7%E8%BF%9B%E8%A1%8C%E9%80%83%E9%80%B8%E7%9A%84demo%E6%8E%A2%E7%A9%B6"><span class="toc-text">一次使用python栈帧进行逃逸的demo探究</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7"><span class="toc-text">起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BF"><span class="toc-text">承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC"><span class="toc-text">转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88"><span class="toc-text">合</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
       
     </div>
   </div>
@@ -511,7 +579,7 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + pyjail%E8%AE%B0%E5%BD%95 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F22%2Fpyjail%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E4%BD%BF%E7%94%A8python%E6%A0%88%E5%B8%A7%E8%BF%9B%E8%A1%8C%E9%80%83%E9%80%B8%E7%9A%84%E6%8E%A2%E7%A9%B6 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F05%2F22%2Fpyjail%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-05-30T03:32:46.532Z</updated>
+  <updated>2024-05-30T13:22:54.768Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【编译原理】普拉特解析学习笔记</title>
+    <title>普拉特解析学习笔记</title>
     <link href="http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/"/>
     <id>http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/</id>
     <published>2024-05-27T02:18:58.000Z</published>
-    <updated>2024-05-30T03:32:46.532Z</updated>
+    <updated>2024-05-30T13:22:54.768Z</updated>
     
     
       
@@ -36,6 +36,52 @@
     
     
     <category term="Compilers" scheme="http://example.com/tags/Compilers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用python栈帧进行逃逸的探究</title>
+    <link href="http://example.com/2024/05/22/pyjail/"/>
+    <id>http://example.com/2024/05/22/pyjail/</id>
+    <published>2024-05-22T13:36:28.000Z</published>
+    <updated>2024-06-01T12:40:40.430Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;一次使用python栈帧进行逃逸的demo探究&quot;&gt;&lt;a href=&quot;#一次使用python栈帧进行逃逸的demo探究&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2024-CISCN初赛-Web-复现</title>
+    <link href="http://example.com/2024/05/21/2024-CISCN-Review/"/>
+    <id>http://example.com/2024/05/21/2024-CISCN-Review/</id>
+    <published>2024-05-21T04:59:23.000Z</published>
+    <updated>2024-05-31T16:00:14.897Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2024-CISCN初赛-Web-复现&quot;&gt;&lt;a href=&quot;#2024-CISCN初赛-Web-复现&quot; class=&quot;headerlink&quot; title=&quot;2024-CISCN初赛-Web-复现&quot;&gt;&lt;/a&gt;2024-CISCN初赛-Web-复现&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
     
   </entry>
   
