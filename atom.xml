@@ -30,30 +30,6 @@
   </entry>
   
   <entry>
-    <title>洛谷刷题记录</title>
-    <link href="http://example.com/2024/06/02/program-train/"/>
-    <id>http://example.com/2024/06/02/program-train/</id>
-    <published>2024-06-02T07:10:38.000Z</published>
-    <updated>2024-06-03T02:57:22.960Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Note&quot;&gt;&lt;a href=&quot;#Note&quot; class=&quot;headerlink&quot; title=&quot;Note&quot;&gt;&lt;/a&gt;Note&lt;/h1&gt;&lt;p&gt;一般栈的内存是1M到2M&lt;/p&gt;
-&lt;h1 id=&quot;模拟&quot;&gt;&lt;a href=&quot;#模拟&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="program" scheme="http://example.com/tags/program/"/>
-    
-  </entry>
-  
-  <entry>
     <title>普拉特解析学习笔记</title>
     <link href="http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/"/>
     <id>http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/</id>
@@ -219,8 +195,8 @@
   
   <entry>
     <title>NJU-Static-Analysis-Data-Flow-Analysis-2</title>
-    <link href="http://example.com/2024/05/01/NJU-Static-Analysis-Data-Flow-Analysis-2/"/>
-    <id>http://example.com/2024/05/01/NJU-Static-Analysis-Data-Flow-Analysis-2/</id>
+    <link href="http://example.com/2024/05/01/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-2/"/>
+    <id>http://example.com/2024/05/01/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-2/</id>
     <published>2024-05-01T12:09:24.000Z</published>
     <updated>2024-05-03T05:42:32.587Z</updated>
     
@@ -362,8 +338,8 @@
   
   <entry>
     <title>NJU-Static-Analysis-Data-Flow-Analysis-1</title>
-    <link href="http://example.com/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/"/>
-    <id>http://example.com/2024/03/30/NJU-Static-Analysis-Data-Flow-Analysis-1/</id>
+    <link href="http://example.com/2024/03/30/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-1/"/>
+    <id>http://example.com/2024/03/30/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-1/</id>
     <published>2024-03-30T10:15:44.000Z</published>
     <updated>2024-05-03T05:24:57.052Z</updated>
     
@@ -385,8 +361,8 @@
   
   <entry>
     <title>NJU Static Analysis - Intermediate Representation</title>
-    <link href="http://example.com/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/"/>
-    <id>http://example.com/2024/03/24/NJU-Static-Analysis-Intermediate-Representation/</id>
+    <link href="http://example.com/2024/03/24/StaticAnalysis/NJU-Static-Analysis-Intermediate-Representation/"/>
+    <id>http://example.com/2024/03/24/StaticAnalysis/NJU-Static-Analysis-Intermediate-Representation/</id>
     <published>2024-03-24T09:21:27.000Z</published>
     <updated>2024-03-24T09:22:19.602Z</updated>
     
@@ -408,8 +384,8 @@
   
   <entry>
     <title>NJU Static Analysis - Introduction</title>
-    <link href="http://example.com/2024/03/20/NJU-Static-Analysis-Introduction/"/>
-    <id>http://example.com/2024/03/20/NJU-Static-Analysis-Introduction/</id>
+    <link href="http://example.com/2024/03/20/StaticAnalysis/NJU-Static-Analysis-Introduction/"/>
+    <id>http://example.com/2024/03/20/StaticAnalysis/NJU-Static-Analysis-Introduction/</id>
     <published>2024-03-20T13:44:13.000Z</published>
     <updated>2024-04-30T03:21:13.720Z</updated>
     
