@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-06-07T09:03:07.960Z</updated>
+  <updated>2024-06-08T10:41:12.476Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,9 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Sanic&amp;Pydash原型链污染复现</title>
+    <link href="http://example.com/2024/06/08/WebExploit/Sanic-Pydash-Pollution/"/>
+    <id>http://example.com/2024/06/08/WebExploit/Sanic-Pydash-Pollution/</id>
+    <published>2024-06-08T06:04:49.000Z</published>
+    <updated>2024-06-08T10:41:12.476Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Sanic-Pydash原型链污染复现&quot;&gt;&lt;a href=&quot;#Sanic-Pydash原型链污染复现&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sanic_babyDev</title>
-    <link href="http://example.com/2024/06/07/Sanic-babyDev/"/>
-    <id>http://example.com/2024/06/07/Sanic-babyDev/</id>
+    <link href="http://example.com/2024/06/07/Code/Sanic-babyDev/"/>
+    <id>http://example.com/2024/06/07/Code/Sanic-babyDev/</id>
     <published>2024-06-07T09:03:07.000Z</published>
     <updated>2024-06-07T09:03:07.960Z</updated>
     
@@ -31,8 +54,8 @@
   
   <entry>
     <title>普拉特解析学习笔记</title>
-    <link href="http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/"/>
-    <id>http://example.com/2024/05/27/Pratt-Parsers-WorkingMode/</id>
+    <link href="http://example.com/2024/05/27/Compile/Pratt-Parsers-WorkingMode/"/>
+    <id>http://example.com/2024/05/27/Compile/Pratt-Parsers-WorkingMode/</id>
     <published>2024-05-27T02:18:58.000Z</published>
     <updated>2024-05-30T13:22:54.768Z</updated>
     
@@ -54,10 +77,10 @@
   
   <entry>
     <title>使用python栈帧进行逃逸的探究</title>
-    <link href="http://example.com/2024/05/22/pyjail/"/>
-    <id>http://example.com/2024/05/22/pyjail/</id>
+    <link href="http://example.com/2024/05/22/WebExploit/frame_pyjail/"/>
+    <id>http://example.com/2024/05/22/WebExploit/frame_pyjail/</id>
     <published>2024-05-22T13:36:28.000Z</published>
-    <updated>2024-06-01T12:47:08.156Z</updated>
+    <updated>2024-06-08T06:12:29.117Z</updated>
     
     
       
@@ -71,16 +94,16 @@
     
     
     
-    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
     
   </entry>
   
   <entry>
     <title>2024-CISCN初赛-Web-复现</title>
-    <link href="http://example.com/2024/05/21/2024-CISCN-Review/"/>
-    <id>http://example.com/2024/05/21/2024-CISCN-Review/</id>
+    <link href="http://example.com/2024/05/21/WriteUp/2024-CISCN-Review/"/>
+    <id>http://example.com/2024/05/21/WriteUp/2024-CISCN-Review/</id>
     <published>2024-05-21T04:59:23.000Z</published>
-    <updated>2024-06-07T09:37:11.746Z</updated>
+    <updated>2024-06-08T08:43:48.390Z</updated>
     
     
       
@@ -100,8 +123,8 @@
   
   <entry>
     <title>【Debug】phpweb+phpstorm调试记录</title>
-    <link href="http://example.com/2024/05/10/php-web-debug/"/>
-    <id>http://example.com/2024/05/10/php-web-debug/</id>
+    <link href="http://example.com/2024/05/10/DevOps/php-web-debug/"/>
+    <id>http://example.com/2024/05/10/DevOps/php-web-debug/</id>
     <published>2024-05-10T01:15:54.000Z</published>
     <updated>2024-05-10T02:57:58.915Z</updated>
     
@@ -149,8 +172,8 @@
   
   <entry>
     <title>WSL Ubuntu与Windows的环境变量管理</title>
-    <link href="http://example.com/2024/05/02/wsl-path-manage/"/>
-    <id>http://example.com/2024/05/02/wsl-path-manage/</id>
+    <link href="http://example.com/2024/05/02/DevOps/wsl-path-manage/"/>
+    <id>http://example.com/2024/05/02/DevOps/wsl-path-manage/</id>
     <published>2024-05-02T04:30:00.000Z</published>
     <updated>2024-05-02T04:40:51.731Z</updated>
     
@@ -172,10 +195,10 @@
   
   <entry>
     <title>2024-D3CTF-WP and Review</title>
-    <link href="http://example.com/2024/05/02/2024-D3CTF-Review/"/>
-    <id>http://example.com/2024/05/02/2024-D3CTF-Review/</id>
+    <link href="http://example.com/2024/05/02/WriteUp/2024-D3CTF-Review/"/>
+    <id>http://example.com/2024/05/02/WriteUp/2024-D3CTF-Review/</id>
     <published>2024-05-02T02:28:34.000Z</published>
-    <updated>2024-05-02T10:11:29.082Z</updated>
+    <updated>2024-06-08T06:11:26.964Z</updated>
     
     
       
@@ -189,7 +212,7 @@
     
     
     
-    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    <category term="WriteUp" scheme="http://example.com/tags/WriteUp/"/>
     
   </entry>
   
@@ -218,8 +241,8 @@
   
   <entry>
     <title>我的2024年四月</title>
-    <link href="http://example.com/2024/04/21/diary-2024-04-21/"/>
-    <id>http://example.com/2024/04/21/diary-2024-04-21/</id>
+    <link href="http://example.com/2024/04/21/Diary/diary-2024-04-21/"/>
+    <id>http://example.com/2024/04/21/Diary/diary-2024-04-21/</id>
     <published>2024-04-21T14:13:30.000Z</published>
     <updated>2024-05-05T13:00:38.666Z</updated>
     
@@ -314,10 +337,10 @@
   
   <entry>
     <title>HASHCTF-2024 出题笔记和心得</title>
-    <link href="http://example.com/2024/04/10/SDUCTF/"/>
-    <id>http://example.com/2024/04/10/SDUCTF/</id>
+    <link href="http://example.com/2024/04/10/WriteUp/SDUCTF/"/>
+    <id>http://example.com/2024/04/10/WriteUp/SDUCTF/</id>
     <published>2024-04-10T12:37:43.000Z</published>
-    <updated>2024-04-14T14:01:25.763Z</updated>
+    <updated>2024-06-08T06:11:37.058Z</updated>
     
     
       
@@ -332,7 +355,7 @@
     
     
     
-    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    <category term="WriteUp" scheme="http://example.com/tags/WriteUp/"/>
     
   </entry>
   
@@ -407,8 +430,8 @@
   
   <entry>
     <title>0day2-Practice</title>
-    <link href="http://example.com/2024/03/13/0day2-Practice/"/>
-    <id>http://example.com/2024/03/13/0day2-Practice/</id>
+    <link href="http://example.com/2024/03/13/Binary/0day2-Practice/"/>
+    <id>http://example.com/2024/03/13/Binary/0day2-Practice/</id>
     <published>2024-03-13T12:48:44.000Z</published>
     <updated>2024-04-23T12:05:57.583Z</updated>
     
