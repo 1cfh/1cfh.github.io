@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-06-08T10:43:42.550Z</updated>
+  <updated>2024-06-12T15:32:49.893Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,9 +17,56 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【重拾JavaSec】 Java反序列化基础</title>
+    <link href="http://example.com/2024/06/12/WebExploit/Java/java-unser-base/"/>
+    <id>http://example.com/2024/06/12/WebExploit/Java/java-unser-base/</id>
+    <published>2024-06-12T03:15:38.000Z</published>
+    <updated>2024-06-12T15:32:49.893Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Java序列化和反序列化的基础知识&quot;&gt;&lt;a href=&quot;#Java序列化和反序列化的基础知识&quot; class=&quot;headerlink&quot; title=&quot;Java序列化和反序列化的基础知识&quot;&gt;&lt;/a&gt;Java序列化和反序列化的基础知识&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【重拾JavaSec】JDBC基础知识</title>
+    <link href="http://example.com/2024/06/11/WebExploit/Java/jdbc/"/>
+    <id>http://example.com/2024/06/11/WebExploit/Java/jdbc/</id>
+    <published>2024-06-11T03:00:38.000Z</published>
+    <updated>2024-06-11T14:53:03.442Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;JDBC&quot;&gt;&lt;a href=&quot;#JDBC&quot; class=&quot;headerlink&quot; title=&quot;JDBC&quot;&gt;&lt;/a&gt;JDBC&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;JDBC，英文全称为Java Database</summary>
+        
+      
+    
+    
+    
+    
+    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sanic&amp;Pydash原型链污染复现</title>
-    <link href="http://example.com/2024/06/08/WebExploit/Sanic-Pydash-Pollution/"/>
-    <id>http://example.com/2024/06/08/WebExploit/Sanic-Pydash-Pollution/</id>
+    <link href="http://example.com/2024/06/08/WebExploit/Python/Sanic-Pydash-Pollution/"/>
+    <id>http://example.com/2024/06/08/WebExploit/Python/Sanic-Pydash-Pollution/</id>
     <published>2024-06-08T06:04:49.000Z</published>
     <updated>2024-06-08T10:43:42.550Z</updated>
     
@@ -77,8 +124,8 @@
   
   <entry>
     <title>使用python栈帧进行逃逸的探究</title>
-    <link href="http://example.com/2024/05/22/WebExploit/frame_pyjail/"/>
-    <id>http://example.com/2024/05/22/WebExploit/frame_pyjail/</id>
+    <link href="http://example.com/2024/05/22/WebExploit/Python/frame_pyjail/"/>
+    <id>http://example.com/2024/05/22/WebExploit/Python/frame_pyjail/</id>
     <published>2024-05-22T13:36:28.000Z</published>
     <updated>2024-06-08T06:12:29.117Z</updated>
     
@@ -425,55 +472,6 @@
     
     
     <category term="Static Analysis" scheme="http://example.com/tags/Static-Analysis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>0day2-Practice</title>
-    <link href="http://example.com/2024/03/13/Binary/0day2-Practice/"/>
-    <id>http://example.com/2024/03/13/Binary/0day2-Practice/</id>
-    <published>2024-03-13T12:48:44.000Z</published>
-    <updated>2024-04-23T12:05:57.583Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;对书籍《0day软件漏洞精要分析-第二版》中的样本进行了调试分析&lt;/p&gt;
-&lt;p&gt;很喜欢书中的一句话：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;所有漂亮的 exploits 背后都隐藏着无数个对着寄存器发呆的不眠之夜&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;复现参考：&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="pwn" scheme="http://example.com/tags/pwn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2024/01/14/hello-world/"/>
-    <id>http://example.com/2024/01/14/hello-world/</id>
-    <published>2024-01-14T03:13:24.019Z</published>
-    <updated>2024-01-14T03:13:24.020Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
