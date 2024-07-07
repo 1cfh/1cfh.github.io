@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-06-18T08:46:07.401Z</updated>
+  <updated>2024-07-04T14:35:01.505Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,24 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【重拾JavaSec】Java反序列化基础</title>
+    <title>recent_thinking</title>
+    <link href="http://example.com/2024/07/04/recent-thinking/"/>
+    <id>http://example.com/2024/07/04/recent-thinking/</id>
+    <published>2024-07-04T14:35:01.000Z</published>
+    <updated>2024-07-04T14:35:01.505Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Java反序列化基础</title>
     <link href="http://example.com/2024/06/12/WebExploit/Java/java-unser-base/"/>
     <id>http://example.com/2024/06/12/WebExploit/Java/java-unser-base/</id>
     <published>2024-06-12T03:15:38.000Z</published>
-    <updated>2024-06-18T08:46:07.401Z</updated>
+    <updated>2024-07-07T02:10:56.808Z</updated>
     
     
       
@@ -40,11 +53,11 @@
   </entry>
   
   <entry>
-    <title>【重拾JavaSec】JDBC基础知识</title>
+    <title>JDBC基础知识</title>
     <link href="http://example.com/2024/06/11/WebExploit/Java/jdbc/"/>
     <id>http://example.com/2024/06/11/WebExploit/Java/jdbc/</id>
     <published>2024-06-11T03:00:38.000Z</published>
-    <updated>2024-06-18T13:26:58.387Z</updated>
+    <updated>2024-07-07T02:11:04.317Z</updated>
     
     
       
@@ -442,29 +455,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;NJU-Static-Analysis-Intermediate-Representation&quot;&gt;&lt;a href=&quot;#NJU-Static-Analysis-Intermediate-Representation&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Static Analysis" scheme="http://example.com/tags/Static-Analysis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NJU Static Analysis - Introduction</title>
-    <link href="http://example.com/2024/03/20/StaticAnalysis/NJU-Static-Analysis-Introduction/"/>
-    <id>http://example.com/2024/03/20/StaticAnalysis/NJU-Static-Analysis-Introduction/</id>
-    <published>2024-03-20T13:44:13.000Z</published>
-    <updated>2024-04-30T03:21:13.720Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;NJU-Static-Analysis-Introduction&quot;&gt;&lt;a href=&quot;#NJU-Static-Analysis-Introduction&quot; class=&quot;headerlink&quot; title=&quot;NJU Static Analysis -</summary>
         
       
     
