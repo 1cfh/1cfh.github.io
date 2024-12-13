@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="John Doe" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      域渗透--基础知识 
+      
+      
+      |
+    
+     1cfh&#39;Blog
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/hacker.jpg">
+    <link rel="icon" href="/images/hacker.jpg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="1cfh'Blog" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/tou.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/"></a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">域渗透--基础知识</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-12-13 17:05:33
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Domain-Penetration/" title="Domain Penetration">
+                    #Domain Penetration
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>THM上的靶机，学习记录一下</p>
+<h1 id="Windows-domain"><a href="#Windows-domain" class="headerlink" title="Windows domain"></a>Windows domain</h1><p>Windows域：微软中，企业管理用户和计算机的组织方式。</p>
+<p>AD（Active Directory）：运行域的重要组件，AD中同时含有凭据</p>
+<p>DC（Domain Controller）：运行AD服务的服务器</p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/bebe5dfec0208bf563d01fa2dd1fb7a7.png" alt="Windows Domain Overview"></p>
+<h1 id="Active-Directory"><a href="#Active-Directory" class="headerlink" title="Active Directory"></a>Active Directory</h1><p>保存网络上存在的所有“对象”信息，包括用户、组、机器、打印机、共享和许多其他对象</p>
+<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><ul>
+<li>按使用者划分，例如按员工</li>
+<li>按程序服务的划分，比如定义 IIS 或 MSSQL 等服务要使用的用户</li>
+</ul>
+<h2 id="机器"><a href="#机器" class="headerlink" title="机器"></a>机器</h2><ul>
+<li>识别计算机帐户相对容易。它们遵循特定的命名方案。计算机帐户名称是计算机的名称，后跟一个美元符号。例如，名为 <code>DC01</code> 的计算机将具有名为 <code>DC01$</code> 的计算机帐户</li>
+</ul>
+<h2 id="安全组"><a href="#安全组" class="headerlink" title="安全组"></a>安全组</h2><ul>
+<li>对用户或者机器进行划分，组可以嵌套组</li>
+<li>一些典型的组</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Security Group 安全组</strong></th>
+<th><strong>Description 描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Domain Admins 域管理员</td>
+<td>Users of this group have administrative privileges over the entire domain. By default, they can administer any computer on the domain, including the DCs. 此组的用户对整个域具有管理权限。默认情况下，他们可以管理域上的任何计算机，包括 DC。</td>
+</tr>
+<tr>
+<td>Server Operators 服务器操作员</td>
+<td>Users in this group can administer Domain Controllers. They cannot change any administrative group memberships. 此组中的用户可以管理 Domain Controllers。他们无法更改任何管理组成员身份。</td>
+</tr>
+<tr>
+<td>Backup Operators 备份操作员</td>
+<td>Users in this group are allowed to access any file, ignoring their permissions. They are used to perform backups of data on computers. 允许此组中的用户访问任何文件，而忽略其权限。它们用于在计算机上执行数据备份。</td>
+</tr>
+<tr>
+<td>Account Operators</td>
+<td>Users in this group can create or modify other accounts in the domain. 此组中的用户可以创建或修改域中的其他帐户。</td>
+</tr>
+<tr>
+<td>Domain Users 域用户</td>
+<td>Includes all existing user accounts in the domain. 包括域中的所有现有用户帐户。</td>
+</tr>
+<tr>
+<td>Domain Computers 域计算机</td>
+<td>Includes all existing computers in the domain. 包括域中的所有现有计算机。</td>
+</tr>
+<tr>
+<td>Domain Controllers 域控制器</td>
+<td>Includes all existing DCs on the domain. 包括域上的所有现有 DC。</td>
+</tr>
+</tbody></table>
+<p>查看user</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131704390.png" alt="image-20241212145431584"></p>
+<p>THM域下<strong>Organizational Units (OUs)</strong> </p>
+<p>在THM OU下有4个部门</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131704368.png" alt="image-20241212145537985"></p>
+<p>默认的OU</p>
+<ul>
+<li><strong>Builtin:</strong> <strong>内置：</strong>包含可用于任何 Windows 主机的默认组。</li>
+<li><strong>Computers:</strong> <strong>计算机：</strong>默认情况下，任何加入网络的计算机都将放在这里。如果需要，您可以移动它们。</li>
+<li><strong>Domain Controllers:</strong> <strong>域控制器：</strong>包含网络中 DC 的默认 OU。</li>
+<li><strong>Users:</strong> <strong>用户：</strong>适用于网域范围上下文的默认用户和用户组。</li>
+<li><strong>Managed Service Accounts:</strong> <strong>托管服务帐户：</strong>保留 Windows 域中的服务使用的账户。</li>
+</ul>
+<blockquote>
+<p>安全组和OU的区别</p>
+</blockquote>
+<ul>
+<li><p><strong>OU</strong> 对于<strong>将策略应用于</strong>用户和计算机非常方便，其中包括与用户组相关的特定配置，具体取决于他们在企业中的特定角色。请记住，用户一次只能是单个 OU 的成员，因为尝试将两组不同的策略应用于单个用户是没有意义的。</p>
+</li>
+<li><p>另一方面，<strong>安全组</strong>用于<strong>授予对资源的权限</strong>。例如，如果要允许某些用户访问共享文件夹或网络打印机，则可以使用组。一个用户可以是多个组的一部分，这是授予对多个资源的访问权限所必需的。</p>
+</li>
+</ul>
+<h2 id="删除OU"><a href="#删除OU" class="headerlink" title="删除OU"></a>删除OU</h2><p>启用view中的Advanced Features</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131704480.png" alt="image-20241212151115766"></p>
+<p>取消保护</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131704989.png" alt="image-20241212151202245"></p>
+<h2 id="委派"><a href="#委派" class="headerlink" title="委派"></a>委派</h2><blockquote>
+<p>委派（delegation）是指让某些OU具有一定的控制权</p>
+</blockquote>
+<p>右键然后选择委派控制权</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131704831.png" alt="image-20241212162231933"></p>
+<p>然后选择成员，此处是Phillip，点击checkname自动补全</p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/2814715e1dbadaef334973028e02da69.png" alt="Delegating Sales OU to Phillip"></p>
+<p>选择委派的权限</p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/3f81df2b38e35ca5729aee7a76c6b220.png" alt="Delegating password resets"></p>
+<p>一路next之后就委派成功</p>
+<p>此时登录philillp账号来修改sophie用户的密码：Aa123456789</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> C:\Users\phillip&gt; <span class="built_in">Set-ADAccountPassword</span> sophie <span class="literal">-Reset</span> <span class="literal">-NewPassword</span> (<span class="built_in">Read-Host</span> <span class="literal">-AsSecureString</span> <span class="literal">-Prompt</span> <span class="string">&#x27;New Password&#x27;</span>) <span class="literal">-Verbose</span></span><br><span class="line"></span><br><span class="line">New Password: *********</span><br><span class="line"></span><br><span class="line">VERBOSE: Performing the operation <span class="string">&quot;Set-ADAccountPassword&quot;</span> on target <span class="string">&quot;CN=Sophie,OU=Sales,OU=THM,DC=thm,DC=local&quot;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>然后RDP连sophie</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705055.png" alt="image-20241212164525383"></p>
+<h2 id="合理的OU配置"><a href="#合理的OU配置" class="headerlink" title="合理的OU配置"></a>合理的OU配置</h2><p>**1. Workstations **：存用户<br>工作站是 Active Directory 域中最常见的设备之一。域中的每个用户都可能登录到工作站。这是他们将用于完成工作或正常浏览活动的设备。这些设备绝不应有特权用户登录。</p>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20241212170041773.png" alt="image-20241212170041773"></p>
+<p>**2. Servers **：存服务器<br>服务器是 Active Directory 域中第二常见的设备。服务器通常用于向用户或其他服务器提供服务。</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705969.png" alt="image-20241212170103100"></p>
+<p>**3. Domain Controllers **：存域控<br>域控制器是 Active Directory 域中第三大最常见的设备。域控制器允许您管理 Active Directory 域。这些设备通常被视为网络中最敏感的设备，因为它们包含环境中所有用户帐户的哈希密码。</p>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20241212170123392.png" alt="image-20241212170123392"></p>
+<h1 id="Group-Polices"><a href="#Group-Polices" class="headerlink" title="Group Polices"></a>Group Polices</h1><p>Windows 通过<strong>组策略对象 （GPO，Group Polices Object）</strong> 管理此OU的安全策略</p>
+<p>打开Group Policy Management</p>
+<p>GPO中分为指向OU的链接和GPO实体</p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/d82cb9440894c831f6f3d58a2b0538ed.png" alt="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/d82cb9440894c831f6f3d58a2b0538ed.png"></p>
+<p>默认域策略和 RDP 策略作为一个整体链接到 <code>thm.local</code> 域，并且 <code>Default Domain Controllers Policy</code> 仅链接到域控制器OU</p>
+<p>任何 GPO 都将适用于链接的 OU 及其下的任何子 OU</p>
+<p>Scope选项中如图所示：</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705430.png" alt="image-20241212170927506"></p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705174.png" alt="image-20241212170941547"></p>
+<h2 id="Edit"><a href="#Edit" class="headerlink" title="Edit"></a>Edit</h2><p>更改密码长度的策略的操作:</p>
+<p>右键Edit Default Domain Policy</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705710.png" alt="image-20241212172936193"></p>
+<h2 id="GPO-distribution"><a href="#GPO-distribution" class="headerlink" title="GPO distribution"></a>GPO distribution</h2><p>GPO 通过名为 <code>SYSVOL</code> 的网络共享分发到网络，该共享存储在 DC 中。域中的所有用户通常都应该能够通过网络访问此共享，以便定期同步其 GPO。默认情况下，SYSVOL 共享点指向我们网络中每个 DC 上的 <code>C：\Windows\SYSVOL\sysvol\</code> 目录</p>
+<p>对任何 GPO 进行更改后，计算机可能需要长达 2 小时才能赶上进度。如果要强制任何特定计算机立即同步其 GPO，则始终可以在所需的计算机上运行以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpupdate /force</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Create-for-THM-Inc"><a href="#Create-for-THM-Inc" class="headerlink" title="Create for THM Inc."></a>Create for THM Inc.</h2><ul>
+<li>Restrict Access to Control Panel</li>
+</ul>
+<p>建立GPO</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705099.png" alt="image-20241212181030782"></p>
+<p>直接将GPO拖拽到对应的OU即可建立链接</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705350.png" alt="image-20241212180932518"></p>
+<ul>
+<li>Auto Lock Screen GPO</li>
+</ul>
+<p>定义并修改时间</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412131705788.png" alt="image-20241212181322834"></p>
+<p>总的来说就是建立GPO规则，然后进入edit修改规则，拉取链接即可</p>
+<h1 id="Windows-Authentication"><a href="#Windows-Authentication" class="headerlink" title="Windows Authentication"></a>Windows Authentication</h1><p>在windows中使用如下协议完成认证</p>
+<ul>
+<li><strong>Kerberos:</strong> 由任何最新版本的 Windows 使用。这是任何最新域中的默认协议。</li>
+<li><strong>NetNTLM:</strong> 保留旧式身份验证协议以实现兼容性。</li>
+</ul>
+<h2 id="kerberos"><a href="#kerberos" class="headerlink" title="kerberos"></a>kerberos</h2><p>认证过程：</p>
+<ul>
+<li>用户将用户名和密码时间戳（用户密码派生的密钥）发送到KDC（密钥分发中心，通常装在域控上），KDC将创建并发回TGT（Ticket Granting Ticket）和SessionKey，TGT是KDC上krbtgt账号的密钥进行加密的</li>
+</ul>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/d36f5a024c20fb480cdae8cd09ddc09f.png" alt="Kerberos step 1"></p>
+<ul>
+<li><p>当用户想要连接到网络上的服务（如共享、网站或数据库）时，他们将使用其 TGT 向 KDC 请求<strong>票证授予服务 （TGS）。</strong>TGS 是仅允许连接到为其创建的<strong>特定服务的票证</strong>。要请求 TGS，用户将发送其用户名和使用会话密钥加密的时间戳，以及 TGT 和服务<strong>主体名称 （SPN），该名称</strong>指示我们打算访问的服务和服务器名称。</p>
+<p>因此，KDC 将向我们发送 TGS 和服务<strong>会话密钥</strong>，我们需要对其进行身份验证才能访问我们想要访问的服务。</p>
+<p>TGS 使用从<strong>服务所有者哈希</strong>派生的密钥进行加密（服务所有者是运行服务的用户或计算机帐户）</p>
+<p>TGS 的加密内容包含服务会话密钥的副本，以便服务所有者可以通过解密 TGS 来访问它。</p>
+</li>
+</ul>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/84504666e78373c613d3e05d176282dc.png" alt="Kerberos step 2"></p>
+<ul>
+<li>可以将 TGS 发送到所需的服务以进行身份验证并建立连接。该服务将使用其配置的账户的密码哈希来解密 TGS 并验证服务会话密钥。</li>
+</ul>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/8fbf08d03459c1b792f3b6efa4d7f285.png" alt="Kerberos step 3"></p>
+<h2 id="NetNTLM"><a href="#NetNTLM" class="headerlink" title="NetNTLM"></a>NetNTLM</h2><p>使用质询-响应机制：</p>
+<ol>
+<li>客户端向他们要访问的服务器发送身份验证请求。</li>
+<li>服务器生成一个随机数并将其作为质询发送给客户端。</li>
+<li>客户端将其 NTLM 密码哈希与质询 （和其他已知数据） 相结合，以生成对质询的响应，并将其发送回服务器进行验证。</li>
+<li>服务器将质询和响应转发给域控制器进行验证。</li>
+<li>域控制器使用质询重新计算响应，并将其与客户端发送的原始响应进行比较。如果它们都匹配，则对客户端进行身份验证;否则，将拒绝访问。身份验证结果将发送回服务器。</li>
+<li>服务器将鉴权结果转发给客户端。</li>
+</ol>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/2eab5cacbd0d3e9dc9afb86169b711ec.png" alt="NetNTLM authentication"></p>
+<h1 id="Windows-Tree-and-Forest"><a href="#Windows-Tree-and-Forest" class="headerlink" title="Windows Tree and Forest"></a>Windows Tree and Forest</h1><ul>
+<li>Tree</li>
+</ul>
+<p>如图，<code>thm.local</code> 域被拆分为英国和美国分支的两个子域，您可以构建一个树，其中根域为 <code>thm.local</code>，两个子域分别名为 <code>uk.thm.local</code> 和 <code>us.thm.local</code>，每个子域都有其 AD、计算机和用户</p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/abea24b7979676a1dcc0c568054544c8.png" alt="Tree"></p>
+<blockquote>
+<p>此时，需要引入一个新的安全组。<strong>Enterprise Admins</strong> 组将授予用户对企业所有域的管理权限。</p>
+<p>每个域仍将拥有对其单个域具有管理员权限的域管理员，以及可以控制企业中所有内容的企业管理员</p>
+</blockquote>
+<ul>
+<li>Forest</li>
+</ul>
+<p>将具有不同命名空间的多个域树合并到同一网络中称为<strong>域林</strong></p>
+<p><img src="https://tryhackme-images.s3.amazonaws.com/user-uploads/5ed5961c6276df568891c3ea/room-content/03448c2faf976db890118d835000bab7.png" alt="Forest"></p>
+<ul>
+<li>Trust Relationships</li>
+</ul>
+<p>域林之间的信任关系，分为单向信任关系和双向信任关系</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/07/21/WebExploit/Java/JNDI-Injection/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-12-13 17:05:33
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Domain-Penetration/" title="Domain Penetration">
+                        #Domain Penetration
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-domain"><span class="toc-text">Windows domain</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Active-Directory"><span class="toc-text">Active Directory</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-text">用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8"><span class="toc-text">机器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%BB%84"><span class="toc-text">安全组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4OU"><span class="toc-text">删除OU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A7%94%E6%B4%BE"><span class="toc-text">委派</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%88%E7%90%86%E7%9A%84OU%E9%85%8D%E7%BD%AE"><span class="toc-text">合理的OU配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Group-Polices"><span class="toc-text">Group Polices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Edit"><span class="toc-text">Edit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GPO-distribution"><span class="toc-text">GPO distribution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-for-THM-Inc"><span class="toc-text">Create for THM Inc.</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-Authentication"><span class="toc-text">Windows Authentication</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#kerberos"><span class="toc-text">kerberos</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NetNTLM"><span class="toc-text">NetNTLM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-Tree-and-Forest"><span class="toc-text">Windows Tree and Forest</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/1cfh">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="rss" href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E5%9F%9F%E6%B8%97%E9%80%8F--%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F12%2F13%2FPenetration%2FAD%2FAD-Basic-md%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/12/13/Penetration/AD/AD-Basic-md/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
