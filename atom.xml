@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-12-24T03:45:19.696Z</updated>
+  <updated>2024-12-27T06:33:25.985Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>memshell_JavaAgent</title>
-    <link href="http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/"/>
-    <id>http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/</id>
-    <published>2024-12-24T03:41:15.000Z</published>
-    <updated>2024-12-24T03:45:19.696Z</updated>
+    <title>JDBCAttack1</title>
+    <link href="http://example.com/2024/12/27/WebExploit/Java/JDBCAttack1/"/>
+    <id>http://example.com/2024/12/27/WebExploit/Java/JDBCAttack1/</id>
+    <published>2024-12-27T06:30:27.000Z</published>
+    <updated>2024-12-27T06:33:25.985Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Java-Agent-内存马学习记录&quot;&gt;&lt;a href=&quot;#Java-Agent-内存马学习记录&quot; class=&quot;headerlink&quot; title=&quot;Java Agent 内存马学习记录&quot;&gt;&lt;/a&gt;Java Agent 内存马学习记录&lt;/h1&gt;&lt;h2</summary>
+    <summary type="html">&lt;h1 id=&quot;JDBC攻击学习记录1&quot;&gt;&lt;a href=&quot;#JDBC攻击学习记录1&quot; class=&quot;headerlink&quot; title=&quot;JDBC攻击学习记录1&quot;&gt;&lt;/a&gt;JDBC攻击学习记录1&lt;/h1&gt;&lt;h2 id=&quot;JDBC简介&quot;&gt;&lt;a href=&quot;#JDBC简介&quot;</summary>
         
       
     
@@ -40,18 +40,18 @@
   </entry>
   
   <entry>
-    <title>Tomcat-Listener内存马</title>
-    <link href="http://example.com/2024/12/22/WebExploit/Java/Tomcat-Listener-MemShell/"/>
-    <id>http://example.com/2024/12/22/WebExploit/Java/Tomcat-Listener-MemShell/</id>
-    <published>2024-12-22T06:08:51.000Z</published>
-    <updated>2024-12-22T06:12:52.304Z</updated>
+    <title>Java Agent 内存马学习记录</title>
+    <link href="http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/"/>
+    <id>http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/</id>
+    <published>2024-12-24T03:41:15.000Z</published>
+    <updated>2024-12-27T06:29:42.457Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Tomcat-Listener内存马学习记录&quot;&gt;&lt;a href=&quot;#Tomcat-Listener内存马学习记录&quot; class=&quot;headerlink&quot; title=&quot;Tomcat Listener内存马学习记录&quot;&gt;&lt;/a&gt;Tomcat</summary>
+    <summary type="html">&lt;h1 id=&quot;Java-Agent-内存马学习记录&quot;&gt;&lt;a href=&quot;#Java-Agent-内存马学习记录&quot; class=&quot;headerlink&quot; title=&quot;Java Agent 内存马学习记录&quot;&gt;&lt;/a&gt;Java Agent 内存马学习记录&lt;/h1&gt;&lt;h2</summary>
         
       
     
@@ -183,7 +183,7 @@
     <link href="http://example.com/2024/06/11/WebExploit/Java/jdbc/"/>
     <id>http://example.com/2024/06/11/WebExploit/Java/jdbc/</id>
     <published>2024-06-11T03:00:38.000Z</published>
-    <updated>2024-07-21T14:08:35.312Z</updated>
+    <updated>2024-12-27T06:29:21.782Z</updated>
     
     
       
