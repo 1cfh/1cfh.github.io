@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-12-27T06:33:25.985Z</updated>
+  <updated>2024-12-30T06:43:56.404Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>JDBCAttack1</title>
+    <title>JDBC攻击其一</title>
     <link href="http://example.com/2024/12/27/WebExploit/Java/JDBCAttack1/"/>
     <id>http://example.com/2024/12/27/WebExploit/Java/JDBCAttack1/</id>
     <published>2024-12-27T06:30:27.000Z</published>
-    <updated>2024-12-27T06:33:25.985Z</updated>
+    <updated>2024-12-30T06:43:56.404Z</updated>
     
     
       
@@ -63,11 +63,11 @@
   </entry>
   
   <entry>
-    <title>Java Agent 内存马学习记录</title>
+    <title>Java Agent 内存马</title>
     <link href="http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/"/>
     <id>http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/</id>
     <published>2024-12-24T03:41:15.000Z</published>
-    <updated>2024-12-27T06:29:42.457Z</updated>
+    <updated>2024-12-30T06:43:17.636Z</updated>
     
     
       
