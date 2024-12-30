@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="John Doe" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      BUUCTF逆向 
+      
+      
+      |
+    
+     1cfh&#39;Blog
+  </title><meta name="robots" content="noindex">
+
+  
+    <link rel="apple-touch-icon" href="/images/hacker.jpg">
+    <link rel="icon" href="/images/hacker.jpg">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="/plugins/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="/plugins/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="1cfh'Blog" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/tou.jpg" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/"></a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">BUUCTF逆向</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-12-29 15:11:47
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Reverse/" title="Reverse">
+                    #Reverse
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="BUUCTF-Reverse-WP"><a href="#BUUCTF-Reverse-WP" class="headerlink" title="BUUCTF Reverse WP"></a>BUUCTF Reverse WP</h1><h1 id="reverse1"><a href="#reverse1" class="headerlink" title="reverse1"></a>reverse1</h1><p>IDA打开后，注意到str2为<code>&#123;hello_world&#125;</code>，且有如下修改逻辑，然后比较，所以flag就是将<code>o</code>改成<code>0</code></p>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20241229113159511.png" alt="image-20241229113159511"></p>
+<h1 id="reverse2"><a href="#reverse2" class="headerlink" title="reverse2"></a>reverse2</h1><p>也是做了一层替换，跟着捏一遍就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="string">&quot;hacking_for_fun&#125;&quot;</span></span><br><span class="line">realflag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(flag)):</span><br><span class="line">    <span class="comment"># print(i)</span></span><br><span class="line">    <span class="comment"># print(ord(flag[i]))</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">ord</span>(flag[i]) == <span class="number">105</span> <span class="keyword">or</span> <span class="built_in">ord</span>(flag[i]) == <span class="number">114</span>):</span><br><span class="line">        realflag += <span class="built_in">chr</span>(<span class="number">49</span>)</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    realflag += flag[i]</span><br><span class="line"><span class="built_in">print</span>(realflag)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="内涵的软件"><a href="#内涵的软件" class="headerlink" title="内涵的软件"></a>内涵的软件</h1><p>IDA打开就有flag</p>
+<h1 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐"></a>新年快乐</h1><p>打开这个CFG怎么一坨，查壳一下为upx，一把梭脱壳然后IDA查壳flag白给</p>
+<h1 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h1><p>为MacOS下的可执行文件，直接拖IDA分析一波</p>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20241229120034198.png" alt="image-20241229120034198"></p>
+<p>输入的数据会经过异或后然后和global这个变量的值比较</p>
+<p>取global变量，选中后按住<code>shift+E</code></p>
+<p><img src="C:\Users\14537\AppData\Roaming\Typora\typora-user-images\image-20241229143758518.png" alt="image-20241229143758518"></p>
+<p>那么根据以上逻辑就有处理后的flag为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flag[0] == flag[0]</span><br><span class="line">flag[1] == flag[0] ^ flag[1]</span><br><span class="line">...</span><br><span class="line">flag[n] == flag[0] ^ ... ^ flag[n]</span><br></pre></td></tr></table></figure>
+
+<p>所以得从后往前处理</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// target</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span> aFKWOXZUPFVMDGH[] =</span><br><span class="line">	&#123;</span><br><span class="line">	  <span class="number">0x66</span>, <span class="number">0x0A</span>, <span class="number">0x6B</span>, <span class="number">0x0C</span>, <span class="number">0x77</span>, <span class="number">0x26</span>, <span class="number">0x4F</span>, <span class="number">0x2E</span>, <span class="number">0x40</span>, <span class="number">0x11</span>,</span><br><span class="line">	  <span class="number">0x78</span>, <span class="number">0x0D</span>, <span class="number">0x5A</span>, <span class="number">0x3B</span>, <span class="number">0x55</span>, <span class="number">0x11</span>, <span class="number">0x70</span>, <span class="number">0x19</span>, <span class="number">0x46</span>, <span class="number">0x1F</span>,</span><br><span class="line">	  <span class="number">0x76</span>, <span class="number">0x22</span>, <span class="number">0x4D</span>, <span class="number">0x23</span>, <span class="number">0x44</span>, <span class="number">0x0E</span>, <span class="number">0x67</span>, <span class="number">0x06</span>, <span class="number">0x68</span>, <span class="number">0x0F</span>,</span><br><span class="line">	  <span class="number">0x47</span>, <span class="number">0x32</span>, <span class="number">0x4F</span></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">32</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">		aFKWOXZUPFVMDGH[i] ^= aFKWOXZUPFVMDGH[i - <span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">33</span>; i++) &#123;</span><br><span class="line">		cout &lt;&lt; <span class="built_in">char</span>(aFKWOXZUPFVMDGH[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="reverse3"><a href="#reverse3" class="headerlink" title="reverse3"></a>reverse3</h1><p>也是数据流处理，叠了一堆shi</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main_0</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v3; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *v4; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">size_t</span> v5; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">char</span> v7; <span class="comment">// [esp+0h] [ebp-188h]</span></span><br><span class="line">  <span class="type">char</span> v8; <span class="comment">// [esp+0h] [ebp-188h]</span></span><br><span class="line">  <span class="type">signed</span> <span class="type">int</span> j; <span class="comment">// [esp+DCh] [ebp-ACh]</span></span><br><span class="line">  <span class="type">int</span> i; <span class="comment">// [esp+E8h] [ebp-A0h]</span></span><br><span class="line">  <span class="type">signed</span> <span class="type">int</span> v11; <span class="comment">// [esp+E8h] [ebp-A0h]</span></span><br><span class="line">  <span class="type">char</span> Destination[<span class="number">108</span>]; <span class="comment">// [esp+F4h] [ebp-94h] BYREF</span></span><br><span class="line">  <span class="type">char</span> Str[<span class="number">28</span>]; <span class="comment">// [esp+160h] [ebp-28h] BYREF</span></span><br><span class="line">  <span class="type">char</span> v14[<span class="number">8</span>]; <span class="comment">// [esp+17Ch] [ebp-Ch] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">100</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">unsigned</span> <span class="type">int</span>)i &gt;= <span class="number">0x64</span> )</span><br><span class="line">      j____report_rangecheckfailure();</span><br><span class="line">    Destination[i] = <span class="number">0</span>;				<span class="comment">// 数据初始化</span></span><br><span class="line">  &#125;</span><br><span class="line">  sub_41132F(<span class="string">&quot;please enter the flag:&quot;</span>, v7);</span><br><span class="line">  sub_411375(<span class="string">&quot;%20s&quot;</span>, (<span class="type">char</span>)Str);</span><br><span class="line">  v3 = j_strlen(Str);</span><br><span class="line">  v4 = (<span class="type">const</span> <span class="type">char</span> *)sub_4110BE(Str, v3, v14);</span><br><span class="line">  <span class="built_in">strncpy</span>(Destination, v4, <span class="number">0x28</span>u);</span><br><span class="line">  v11 = j_strlen(Destination);</span><br><span class="line">  <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt; v11; ++j )</span><br><span class="line">    Destination[j] += j;</span><br><span class="line">  v5 = j_strlen(Destination);</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(Destination, Str2, v5) )</span><br><span class="line">    sub_41132F(<span class="string">&quot;rigth flag!\n&quot;</span>, v8);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    sub_41132F(<span class="string">&quot;wrong flag!\n&quot;</span>, v8);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<!-- flag of hidden posts -->
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-12-29 15:11:47
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Reverse/" title="Reverse">
+                        #Reverse
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BUUCTF-Reverse-WP"><span class="toc-text">BUUCTF Reverse WP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse1"><span class="toc-text">reverse1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse2"><span class="toc-text">reverse2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E6%B6%B5%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="toc-text">内涵的软件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90"><span class="toc-text">新年快乐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xor"><span class="toc-text">xor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse3"><span class="toc-text">reverse3</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/1cfh">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+        <li>
+          
+              <a title="rss" href="/atom.xml">
+                <i class="iconfont icon-rss"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © 2024 Oranges</a>
+        
+    </div>
+  
+    
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+  
+    <div class="footer-views">
+      
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+      
+          本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        
+      
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        
+      
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + BUUCTF%E9%80%86%E5%90%91 + '&url=' + http%3A%2F%2Fexample.com%2F2024%2F12%2F29%2FReverse%2FBUUCTF-Reverse-WP%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2024/12/29/Reverse/BUUCTF-Reverse-WP/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  </body>
+</html>

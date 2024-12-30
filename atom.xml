@@ -40,6 +40,29 @@
   </entry>
   
   <entry>
+    <title>整理一下Java的CTF题</title>
+    <link href="http://example.com/2024/12/27/WebExploit/Java/java%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/"/>
+    <id>http://example.com/2024/12/27/WebExploit/Java/java%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</id>
+    <published>2024-12-27T06:30:27.000Z</published>
+    <updated>2024-12-30T06:41:24.853Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Java赛题复现&quot;&gt;&lt;a href=&quot;#Java赛题复现&quot; class=&quot;headerlink&quot; title=&quot;Java赛题复现&quot;&gt;&lt;/a&gt;Java赛题复现&lt;/h1&gt;&lt;h2 id=&quot;2024年-CISCN-ezjava&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java Agent 内存马学习记录</title>
     <link href="http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/"/>
     <id>http://example.com/2024/12/24/WebExploit/Java/memshell-JavaAgent/</id>
@@ -445,29 +468,6 @@
     
     
     <category term="Life" scheme="http://example.com/tags/Life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>免杀中的unhook手法(持续更新)</title>
-    <link href="http://example.com/2024/04/15/unhook_AVBypass/"/>
-    <id>http://example.com/2024/04/15/unhook_AVBypass/</id>
-    <published>2024-04-15T10:46:23.000Z</published>
-    <updated>2024-04-15T14:42:01.048Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;UnhookingPatch&quot;&gt;&lt;a href=&quot;#UnhookingPatch&quot; class=&quot;headerlink&quot; title=&quot;UnhookingPatch&quot;&gt;&lt;/a&gt;UnhookingPatch&lt;/h1&gt;&lt;p&gt;项目地址：&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="RedTeam" scheme="http://example.com/tags/RedTeam/"/>
     
   </entry>
   
