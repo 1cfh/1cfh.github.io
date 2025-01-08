@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-01-05T02:03:45.980Z</updated>
+  <updated>2025-01-07T16:05:23.785Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>IDEA下JettyServer的相关调试记录</title>
+    <link href="http://example.com/2025/01/05/WebExploit/Java/JettyDebugIDEA/"/>
+    <id>http://example.com/2025/01/05/WebExploit/Java/JettyDebugIDEA/</id>
+    <published>2025-01-05T08:43:49.000Z</published>
+    <updated>2025-01-07T16:05:23.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在没有war&lt;/p&gt;
+&lt;h1 id=&quot;导入插件&quot;&gt;&lt;a href=&quot;#导入插件&quot; class=&quot;headerlink&quot; title=&quot;导入插件&quot;&gt;&lt;/a&gt;导入插件&lt;/h1&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat Listener型内存马</title>
+    <link href="http://example.com/2025/01/05/WebExploit/Java/memshell-Listener/"/>
+    <id>http://example.com/2025/01/05/WebExploit/Java/memshell-Listener/</id>
+    <published>2025-01-05T02:18:25.000Z</published>
+    <updated>2025-01-05T07:26:28.540Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Tomcat-Listener型内存马&quot;&gt;&lt;a href=&quot;#Tomcat-Listener型内存马&quot; class=&quot;headerlink&quot; title=&quot;Tomcat Listener型内存马&quot;&gt;&lt;/a&gt;Tomcat Listener型内存马&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Jetty型内存马</title>
@@ -45,7 +92,7 @@
     <link href="http://example.com/2025/01/02/WebExploit/Java/FastjsonVuln/"/>
     <id>http://example.com/2025/01/02/WebExploit/Java/FastjsonVuln/</id>
     <published>2025-01-02T13:29:06.000Z</published>
-    <updated>2025-01-05T02:08:28.441Z</updated>
+    <updated>2025-01-08T14:04:29.913Z</updated>
     
     
       
@@ -91,7 +138,7 @@
     <link href="http://example.com/2024/12/27/WebExploit/Java/java%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/"/>
     <id>http://example.com/2024/12/27/WebExploit/Java/java%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</id>
     <published>2024-12-27T06:30:27.000Z</published>
-    <updated>2025-01-04T07:12:44.153Z</updated>
+    <updated>2025-01-08T14:10:05.570Z</updated>
     
     
       
@@ -207,7 +254,7 @@
     <link href="http://example.com/2024/07/21/WebExploit/Java/JNDI-Injection/"/>
     <id>http://example.com/2024/07/21/WebExploit/Java/JNDI-Injection/</id>
     <published>2024-07-21T12:01:23.000Z</published>
-    <updated>2024-12-18T13:09:13.745Z</updated>
+    <updated>2025-01-05T07:31:04.893Z</updated>
     
     
       
@@ -221,7 +268,7 @@
     
     
     
-    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
     
   </entry>
   
@@ -230,7 +277,7 @@
     <link href="http://example.com/2024/06/12/WebExploit/Java/java-unser-base/"/>
     <id>http://example.com/2024/06/12/WebExploit/Java/java-unser-base/</id>
     <published>2024-06-12T03:15:38.000Z</published>
-    <updated>2024-07-21T11:47:46.649Z</updated>
+    <updated>2025-01-05T07:30:50.916Z</updated>
     
     
       
@@ -244,7 +291,7 @@
     
     
     
-    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
     
   </entry>
   
@@ -253,7 +300,7 @@
     <link href="http://example.com/2024/06/11/WebExploit/Java/jdbc/"/>
     <id>http://example.com/2024/06/11/WebExploit/Java/jdbc/</id>
     <published>2024-06-11T03:00:38.000Z</published>
-    <updated>2024-12-27T06:29:21.782Z</updated>
+    <updated>2025-01-05T07:30:41.162Z</updated>
     
     
       
@@ -268,7 +315,7 @@
     
     
     
-    <category term="WebSec" scheme="http://example.com/tags/WebSec/"/>
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
     
   </entry>
   
@@ -423,52 +470,6 @@
     
     
     <category term="Fuzz" scheme="http://example.com/tags/Fuzz/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WSL Ubuntu与Windows的环境变量管理</title>
-    <link href="http://example.com/2024/05/02/DevOps/wsl-path-manage/"/>
-    <id>http://example.com/2024/05/02/DevOps/wsl-path-manage/</id>
-    <published>2024-05-02T04:30:00.000Z</published>
-    <updated>2024-05-02T04:40:51.731Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;WSL与Windows的环境变量管理&quot;&gt;&lt;a href=&quot;#WSL与Windows的环境变量管理&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="WSL" scheme="http://example.com/tags/WSL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2024-D3CTF-WP and Review</title>
-    <link href="http://example.com/2024/05/02/WriteUp/2024-D3CTF-Review/"/>
-    <id>http://example.com/2024/05/02/WriteUp/2024-D3CTF-Review/</id>
-    <published>2024-05-02T02:28:34.000Z</published>
-    <updated>2024-06-08T06:11:26.964Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;2024-D-3CTF-Web-WP和复现&quot;&gt;&lt;a href=&quot;#2024-D-3CTF-Web-WP和复现&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="WriteUp" scheme="http://example.com/tags/WriteUp/"/>
     
   </entry>
   

@@ -10,10 +10,13 @@
   <!-- 用于搜索引擎的文章摘要 -->
   
   
-    <meta name="robots" content="noindex" />
-  
   
   <title>
+    
+      一个绕过伏魔引擎的Webshell 
+      
+      
+      |
     
      1cfh&#39;Blog
   </title>
@@ -108,151 +111,158 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="JNDI注入学习">
-        <div class="time-m-d">2024-07-21</div>
-        <div class="title">
-          <a href="/2024/07/21/WebExploit/Java/JNDI-Injection/">
-            
-              
-                <span>JNDI注入学习</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">一个绕过伏魔引擎的Webshell</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2025-01-05 15:28:39
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/" title="红蓝对抗">
+                    #红蓝对抗
+                  </a>
+                </span>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Webshell%E5%85%8D%E6%9D%80/" title="Webshell免杀">
+                    #Webshell免杀
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="Java反序列化基础">
-        <div class="time-m-d">2024-06-12</div>
-        <div class="title">
-          <a href="/2024/06/12/WebExploit/Java/java-unser-base/">
-            
-              
-                <span>Java反序列化基础</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="df9bfae2d8b9bb7ebf639b8f7f9653d50c636890c76f2a18f914aa6c03c0a25f">84bab8aa0845d35c83ef0627e67139dd3d7ce8480f936b087b861ee8da6f7c24a66c6483f47dbdf6c4b216043e343a861d76d6ac73ef32356f7fc4270d4430c9b36ebfe10a76fc481935e21b21f8faab40cd020fc703e880ebe884e56bcc91426e3b4026129c8e7f822fdf07f25eca877607dee72233f47f9c8e0e85254a7d93c7604f9ac1ccd75646a395c3b2fe32a532e3e7e036ee71cb22fd4ecc43cb1d6d4fe396ebaa9ae662c496a476ef1a56d95c7bc62c8c2c654593f407c050aadd49370b80ebd38491d8717fd976798678edb8292290de61fa6f6f28024025f14d078baf4a3ea290e6ccbf63096ee8675220319f5994bb4ee3a98c8a6ea063a3b55266c32435556844738ccf816cac0d2b663483bd48b813f0cb588238554150ab7e0023f12f02a0a6c233682e03b917af3d08b79f1d527ae9306bd52ad9f4157b36186c1cf98d309f5984620d452bd3b2f7958aa4283cc022be52fb742f35297f5ceb1f7ec1e97f3d920f97b7cc24922a660cce6ce7be6fad83843259af5e9da6ce06638060af0b762d9830ab586a3528a80aa812d23ab13f03e68b5d0f9bf0fef8d33ce5cb9a5521fb5e59222299a936eee6047c7f851f4b4a30a42ab45f79f82c220d058e126999a93f2608d3fbd9999832c0eb5802eb559ffaf58e7f8f3da3da00782b1fd284b923877614d5fbb68de4895e793519bb265b07ef9fa3cb388b96d79f1ce9ba6deed48a6f1ab5c5951dc1accdcaad40360eb2d2cd9dab6378059d69238a604e77e4de7edfcc181b3afced73ebf94e5e17ec821d310706e9faf443a7cb2abee81052b4d7659177eb901e6036e7e451ebf01c206fa2e8f7633a87641c396861b3f261af1475bfd2891163d239b6ae83d10ace5bed8be58dc26b4a8295c8ce7cae6f7cee36e67bf278b5601cb6e6ef2aac3339094c823b037f25858b1a9e7d505e645e5e2fcbd9fdb428cebecb2ac817d42186d7a93e9aacca39d572a825e61195d1098fc587e75dcbf36c32e4064fe493099f846606c7cb2c5215778b63cd25576dd5f1136ce840d07e3e331b4a84bb1469b09258d514316d87ef88857b0f349791f57c3125739e978289a9c81e17641b853ac1210554bb36599a0127f3a0aaf48091408278b3cefd9871ecc3e8ab9983970a454fbfc19c4f6ba9f222a6c0aa053d80936fd7efbc604ca75576109e5f9c8a4bf77c305a80ed9dfa00c95da515538dd97c68d47376c221e2ca8ec9fd00041861fdf1a8cd891b5ac9ec144af64121704fc9ecb58c3526784f6898ec7d5800b985b6c43d6d84418786b705eb268ea1b9a381e383cde57fbeac55ff53248d6d3b7d158c246421dfb69a4a1e48306021a03abf3d8517156e22fcd0</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
       </div>
-    
-      <div class="post-item" title="JDBC基础知识">
-        <div class="time-m-d">2024-06-11</div>
-        <div class="title">
-          <a href="/2024/06/11/WebExploit/Java/jdbc/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>JDBC基础知识</span>
-              
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2025-01-05 15:28:39
+            </span>
             
-          </a>
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/" title="红蓝对抗">
+                        #红蓝对抗
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Webshell%E5%85%8D%E6%9D%80/" title="Webshell免杀">
+                        #Webshell免杀
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="Sanic&Pydash原型链污染复现">
-        <div class="time-m-d">2024-06-08</div>
-        <div class="title">
-          <a href="/2024/06/08/WebExploit/Python/Sanic-Pydash-Pollution/">
-            
-              
-                <span>Sanic&Pydash原型链污染复现</span>
-              
-            
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%90%8E%F0%9F%90%8E%F0%9F%90%8E"><span class="toc-text">🐎🐎🐎</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Sanic_babyDev">
-        <div class="time-m-d">2024-06-07</div>
-        <div class="title">
-          <a href="/2024/06/07/Code/Sanic-babyDev/">
-            
-              
-                <span>Sanic_babyDev</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Pratt Parser学习笔记">
-        <div class="time-m-d">2024-05-27</div>
-        <div class="title">
-          <a href="/2024/05/27/Compile/Pratt-Parsers-WorkingMode/">
-            
-              
-                <span>Pratt Parser学习笔记</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="使用python栈帧进行逃逸的探究">
-        <div class="time-m-d">2024-05-22</div>
-        <div class="title">
-          <a href="/2024/05/22/WebExploit/Python/frame_pyjail/">
-            
-              
-                <span>使用python栈帧进行逃逸的探究</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2024-CISCN初赛-Web-复现">
-        <div class="time-m-d">2024-05-21</div>
-        <div class="title">
-          <a href="/2024/05/21/WriteUp/2024-CISCN-Review/">
-            
-              
-                <span>2024-CISCN初赛-Web-复现</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Debug】phpweb+phpstorm调试记录">
-        <div class="time-m-d">2024-05-10</div>
-        <div class="title">
-          <a href="/2024/05/10/DevOps/php-web-debug/">
-            
-              
-                <span>【Debug】phpweb+phpstorm调试记录</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Fuzzing101-复现记录">
-        <div class="time-m-d">2024-05-03</div>
-        <div class="title">
-          <a href="/2024/05/03/Fuzzing-101/">
-            
-              
-                <span>Fuzzing101-复现记录</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-      <a href="/"><i class="iconfont icon-angleleft"></i></a>
-    
-    <span class="page-num">2 / 4</span>
-    
-      <a href="/page/3/"><i class="iconfont icon-angleright"></i></a>
-    
-  </nav>
-</div>
+
 
         
 <div class="footer">
@@ -530,6 +540,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E4%B8%80%E4%B8%AA%E7%BB%95%E8%BF%87%E4%BC%8F%E9%AD%94%E5%BC%95%E6%93%8E%E7%9A%84Webshell + '&url=' + http%3A%2F%2Fexample.com%2F2025%2F01%2F05%2F%25E7%25BA%25A2%25E8%2593%259D%25E5%25AF%25B9%25E6%258A%2597%2FBypassAV%2FWebshell-4th-FumoChallenge%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2025/01/05/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/BypassAV/Webshell-4th-FumoChallenge/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
