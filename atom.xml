@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-01-07T16:05:23.785Z</updated>
+  <updated>2025-01-21T12:29:15.004Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,19 +17,82 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>IDEA下JettyServer的相关调试记录</title>
-    <link href="http://example.com/2025/01/05/WebExploit/Java/JettyDebugIDEA/"/>
-    <id>http://example.com/2025/01/05/WebExploit/Java/JettyDebugIDEA/</id>
-    <published>2025-01-05T08:43:49.000Z</published>
-    <updated>2025-01-07T16:05:23.785Z</updated>
+    <title>Hessian反序列化学习</title>
+    <link href="http://example.com/2025/01/11/WebExploit/Java/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2025/01/11/WebExploit/Java/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/</id>
+    <published>2025-01-11T15:20:48.000Z</published>
+    <updated>2025-01-21T12:29:15.004Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;在没有war&lt;/p&gt;
-&lt;h1 id=&quot;导入插件&quot;&gt;&lt;a href=&quot;#导入插件&quot; class=&quot;headerlink&quot; title=&quot;导入插件&quot;&gt;&lt;/a&gt;导入插件&lt;/h1&gt;&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+    <summary type="html">&lt;h1 id=&quot;Hessian反序列化学习&quot;&gt;&lt;a href=&quot;#Hessian反序列化学习&quot; class=&quot;headerlink&quot; title=&quot;Hessian反序列化学习&quot;&gt;&lt;/a&gt;Hessian反序列化学习&lt;/h1&gt;&lt;h2 id=&quot;RPC&quot;&gt;&lt;a href=&quot;#RPC&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jackson反序列化学习</title>
+    <link href="http://example.com/2025/01/11/WebExploit/Java/Jackson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2025/01/11/WebExploit/Java/Jackson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/</id>
+    <published>2025-01-11T11:39:38.000Z</published>
+    <updated>2025-01-11T15:20:35.667Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;占坑&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代码审计项目清单</title>
+    <link href="http://example.com/2025/01/08/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A1%B9%E7%9B%AE%E6%B8%85%E5%8D%95/"/>
+    <id>http://example.com/2025/01/08/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A1%B9%E7%9B%AE%E6%B8%85%E5%8D%95/</id>
+    <published>2025-01-08T15:46:57.000Z</published>
+    <updated>2025-01-08T15:48:05.967Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Code audit" scheme="http://example.com/tags/Code-audit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>反序列化下注入内存马的打法</title>
+    <link href="http://example.com/2025/01/08/WebExploit/Java/memshell-in-unser/"/>
+    <id>http://example.com/2025/01/08/WebExploit/Java/memshell-in-unser/</id>
+    <published>2025-01-08T14:47:15.000Z</published>
+    <updated>2025-01-09T07:28:00.366Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;反序列化下注入内存马的打法&quot;&gt;&lt;a href=&quot;#反序列化下注入内存马的打法&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -53,30 +116,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;Tomcat-Listener型内存马&quot;&gt;&lt;a href=&quot;#Tomcat-Listener型内存马&quot; class=&quot;headerlink&quot; title=&quot;Tomcat Listener型内存马&quot;&gt;&lt;/a&gt;Tomcat Listener型内存马&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Java" scheme="http://example.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jetty型内存马</title>
-    <link href="http://example.com/2025/01/05/WebExploit/Java/Jetty-Memshell/"/>
-    <id>http://example.com/2025/01/05/WebExploit/Java/Jetty-Memshell/</id>
-    <published>2025-01-05T01:56:49.000Z</published>
-    <updated>2025-01-05T02:03:45.980Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;先来占个坑&lt;/p&gt;
-</summary>
         
       
     
@@ -421,55 +460,6 @@
     
     
     <category term="CTF" scheme="http://example.com/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Debug】phpweb+phpstorm调试记录</title>
-    <link href="http://example.com/2024/05/10/DevOps/php-web-debug/"/>
-    <id>http://example.com/2024/05/10/DevOps/php-web-debug/</id>
-    <published>2024-05-10T01:15:54.000Z</published>
-    <updated>2024-05-10T02:57:58.915Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;之前配置过了好多次，但是每次都忘了怎么配置，所以打算记录一下&lt;/p&gt;
-&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Debug" scheme="http://example.com/tags/Debug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Fuzzing101-复现记录</title>
-    <link href="http://example.com/2024/05/03/Fuzzing-101/"/>
-    <id>http://example.com/2024/05/03/Fuzzing-101/</id>
-    <published>2024-05-03T13:58:40.000Z</published>
-    <updated>2024-05-30T03:43:12.927Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;学长搞Fuzz毕设，顺道跟着学了点&lt;/p&gt;
-&lt;p&gt;寒假时，主要跟着Github上的&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Fuzz" scheme="http://example.com/tags/Fuzz/"/>
     
   </entry>
   

@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2024/5 
+      代码审计项目清单 
       
       
       |
@@ -111,345 +111,156 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2025</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">代码审计项目清单</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2025-01-08 23:48:05
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Code-audit/" title="Code audit">
+                    #Code audit
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="0a0085243894268d33d722ceeb12c476e260862a49d7651b66a308ad11a3854f">84bab8aa0845d35c83ef0627e67139dd3d7ce8480f936b087b861ee8da6f7c2454ce07c406e5ecf4cb28acdb125c72e651f3c1f50bfcb298127e00bb4ea1f0d70d5d126f54d1287cf42a688e1b0feb3f3995f8167c434d07e505b19343670077560e1fde031d53df23fb1b4fa2ea65b7f1edb419d10a2e419ef5710e1a97858c174f56c8a7a5d2b0068c43dda986ca57be14b3beab77bd7a66330477dc684dc7dce8dea2071c0db0136be5cd4c85cddf9cc73e119af60fd68a92c1a7f8930cf49f1d31c25fa6f254a4d76d6c181bbe8f3f2e4a32385ea72a6eea0db770ded7cbb5e5ec476a365a30ef646dc2a6947f7d429bd3fcba59c23ae3cb3647d455cc815d458ff7bb414237d11545da81fcca7ebfe0b187b2362300ac431b51c794d69f3324ec1235a323debd58db820185883db129c8a469e25b613c4f89e50ce0b12f043daea97c958cd88781c610c6f67ad60a34ad597ceaeb81cb7ce4ec39ef66dd</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2025/01/08/WebExploit/Java/memshell-in-unser/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2025-01-08 23:48:05
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Code-audit/" title="Code audit">
+                        #Code audit
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2025/01/11/WebExploit/Java/Jackson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="Hessian反序列化学习">
-        <div class="time-m-d">01-11</div>
-        <div class="title">
-          <a href="/2025/01/11/WebExploit/Java/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/">
-            <span>Hessian反序列化学习</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="Jackson反序列化学习">
-        <div class="time-m-d">01-11</div>
-        <div class="title">
-          <a href="/2025/01/11/WebExploit/Java/Jackson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%A6%E4%B9%A0/">
-            <span>Jackson反序列化学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="代码审计项目清单">
-        <div class="time-m-d">01-08</div>
-        <div class="title">
-          <a href="/2025/01/08/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A1%B9%E7%9B%AE%E6%B8%85%E5%8D%95/">
-            <span>代码审计项目清单</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="反序列化下注入内存马的打法">
-        <div class="time-m-d">01-08</div>
-        <div class="title">
-          <a href="/2025/01/08/WebExploit/Java/memshell-in-unser/">
-            <span>反序列化下注入内存马的打法</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tomcat Listener型内存马">
-        <div class="time-m-d">01-05</div>
-        <div class="title">
-          <a href="/2025/01/05/WebExploit/Java/memshell-Listener/">
-            <span>Tomcat Listener型内存马</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Fastjson漏洞学习">
-        <div class="time-m-d">01-02</div>
-        <div class="title">
-          <a href="/2025/01/02/WebExploit/Java/FastjsonVuln/">
-            <span>Fastjson漏洞学习</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2024</span>
-          </h2>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
       
-      <div class="post-item" title="JDBC攻击其一">
-        <div class="time-m-d">12-27</div>
-        <div class="title">
-          <a href="/2024/12/27/WebExploit/Java/JDBCAttack1/">
-            <span>JDBC攻击其一</span>
-          </a>
-        </div>
-      </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP"><span class="toc-text">PHP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java"><span class="toc-text">Java</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C"><span class="toc-text">C#</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="整理一下Java的CTF题">
-        <div class="time-m-d">12-27</div>
-        <div class="title">
-          <a href="/2024/12/27/WebExploit/Java/java%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
-            <span>整理一下Java的CTF题</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Java Agent 内存马">
-        <div class="time-m-d">12-24</div>
-        <div class="title">
-          <a href="/2024/12/24/WebExploit/Java/memshell-JavaAgent/">
-            <span>Java Agent 内存马</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="DASCTF 2024最后一战 WP">
-        <div class="time-m-d">12-21</div>
-        <div class="title">
-          <a href="/2024/12/21/WriteUp/DASCTF-2024%E6%9C%80%E5%90%8E%E4%B8%80%E6%88%98/">
-            <span>DASCTF 2024最后一战 WP</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Tomcat Filter型内存马">
-        <div class="time-m-d">12-18</div>
-        <div class="title">
-          <a href="/2024/12/18/WebExploit/Java/Tomcat-Filter%E5%86%85%E5%AD%98%E9%A9%AC/">
-            <span>Tomcat Filter型内存马</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="域渗透--基础知识">
-        <div class="time-m-d">12-13</div>
-        <div class="title">
-          <a href="/2024/12/13/Penetration/AD/AD-Basic-md/">
-            <span>域渗透--基础知识</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="JNDI注入学习">
-        <div class="time-m-d">07-21</div>
-        <div class="title">
-          <a href="/2024/07/21/WebExploit/Java/JNDI-Injection/">
-            <span>JNDI注入学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Java反序列化基础">
-        <div class="time-m-d">06-12</div>
-        <div class="title">
-          <a href="/2024/06/12/WebExploit/Java/java-unser-base/">
-            <span>Java反序列化基础</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="JDBC基础知识">
-        <div class="time-m-d">06-11</div>
-        <div class="title">
-          <a href="/2024/06/11/WebExploit/Java/jdbc/">
-            <span>JDBC基础知识</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sanic&Pydash原型链污染复现">
-        <div class="time-m-d">06-08</div>
-        <div class="title">
-          <a href="/2024/06/08/WebExploit/Python/Sanic-Pydash-Pollution/">
-            <span>Sanic&Pydash原型链污染复现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sanic_babyDev">
-        <div class="time-m-d">06-07</div>
-        <div class="title">
-          <a href="/2024/06/07/Code/Sanic-babyDev/">
-            <span>Sanic_babyDev</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Pratt Parser学习笔记">
-        <div class="time-m-d">05-27</div>
-        <div class="title">
-          <a href="/2024/05/27/Compile/Pratt-Parsers-WorkingMode/">
-            <span>Pratt Parser学习笔记</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="使用python栈帧进行逃逸的探究">
-        <div class="time-m-d">05-22</div>
-        <div class="title">
-          <a href="/2024/05/22/WebExploit/Python/frame_pyjail/">
-            <span>使用python栈帧进行逃逸的探究</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2024-CISCN初赛-Web-复现">
-        <div class="time-m-d">05-21</div>
-        <div class="title">
-          <a href="/2024/05/21/WriteUp/2024-CISCN-Review/">
-            <span>2024-CISCN初赛-Web-复现</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【Debug】phpweb+phpstorm调试记录">
-        <div class="time-m-d">05-10</div>
-        <div class="title">
-          <a href="/2024/05/10/DevOps/php-web-debug/">
-            <span>【Debug】phpweb+phpstorm调试记录</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Fuzzing101-复现记录">
-        <div class="time-m-d">05-03</div>
-        <div class="title">
-          <a href="/2024/05/03/Fuzzing-101/">
-            <span>Fuzzing101-复现记录</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="WSL Ubuntu与Windows的环境变量管理">
-        <div class="time-m-d">05-02</div>
-        <div class="title">
-          <a href="/2024/05/02/DevOps/wsl-path-manage/">
-            <span>WSL Ubuntu与Windows的环境变量管理</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2024-D3CTF-WP and Review">
-        <div class="time-m-d">05-02</div>
-        <div class="title">
-          <a href="/2024/05/02/WriteUp/2024-D3CTF-Review/">
-            <span>2024-D3CTF-WP and Review</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU-Static-Analysis-Data-Flow-Analysis-2">
-        <div class="time-m-d">05-01</div>
-        <div class="title">
-          <a href="/2024/05/01/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-2/">
-            <span>NJU-Static-Analysis-Data-Flow-Analysis-2</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="我的2024年四月">
-        <div class="time-m-d">04-21</div>
-        <div class="title">
-          <a href="/2024/04/21/Diary/diary-2024-04-21/">
-            <span>我的2024年四月</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="免杀中的unhook手法(持续更新)">
-        <div class="time-m-d">04-15</div>
-        <div class="title">
-          <a href="/2024/04/15/unhook_AVBypass/">
-            <span>免杀中的unhook手法(持续更新)</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Windows Hacker Review - 注入技术">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/2024/04/10/WindowsHacker-InjectionTrick/">
-            <span>Windows Hacker Review - 注入技术</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="syscall免杀学习记录(持续更新)">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/2024/04/10/syscall-AVBypass/">
-            <span>syscall免杀学习记录(持续更新)</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="HASHCTF-2024 出题笔记和心得">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/2024/04/10/WriteUp/SDUCTF/">
-            <span>HASHCTF-2024 出题笔记和心得</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU-Static-Analysis-Data-Flow-Analysis-1">
-        <div class="time-m-d">03-30</div>
-        <div class="title">
-          <a href="/2024/03/30/StaticAnalysis/NJU-Static-Analysis-Data-Flow-Analysis-1/">
-            <span>NJU-Static-Analysis-Data-Flow-Analysis-1</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU Static Analysis - Intermediate Representation">
-        <div class="time-m-d">03-24</div>
-        <div class="title">
-          <a href="/2024/03/24/StaticAnalysis/NJU-Static-Analysis-Intermediate-Representation/">
-            <span>NJU Static Analysis - Intermediate Representation</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="NJU Static Analysis - Introduction">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2024/03/20/StaticAnalysis/NJU-Static-Analysis-Introduction/">
-            <span>NJU Static Analysis - Introduction</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="0day2-Practice">
-        <div class="time-m-d">03-13</div>
-        <div class="title">
-          <a href="/2024/03/13/Binary/0day2-Practice/">
-            <span>0day2-Practice</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">01-14</div>
-        <div class="title">
-          <a href="/2024/01/14/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -727,6 +538,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + %E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A1%B9%E7%9B%AE%E6%B8%85%E5%8D%95 + '&url=' + http%3A%2F%2Fexample.com%2F2025%2F01%2F08%2F%25E7%25BA%25A2%25E8%2593%259D%25E5%25AF%25B9%25E6%258A%2597%2F%25E4%25BB%25A3%25E7%25A0%2581%25E5%25AE%25A1%25E8%25AE%25A1%2F%25E4%25BB%25A3%25E7%25A0%2581%25E5%25AE%25A1%25E8%25AE%25A1%25E9%25A1%25B9%25E7%259B%25AE%25E6%25B8%2585%25E5%258D%2595%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://example.com/2025/01/08/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E9%A1%B9%E7%9B%AE%E6%B8%85%E5%8D%95/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
